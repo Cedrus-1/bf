@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.persistence.DynamicMapper">
+
+	<select id="getPageDynamicByUserID" resultType="com.bean.Dynamic">
+		SELECT * From 
+			dynamic 
+		Where 
+			dynamicUserID in (SELECT agreeID from relation WHERE type=1 AND applyID = #{0}  
+								UNION SELECT applyID from relation WHERE type=1 AND agreeID = #{0} ) 
+		ORDER by dynamicTime DESC LIMIT #{1},#{2}
+	</select>
+	
+	<select id="getDynamicCountByUserID" resultType="Integer" parameterType="Integer">
+		SELECT count(*) From 
+			dynamic 
+		Where 
+			dynamicUserID in (SELECT agreeID from relation WHERE type=1 AND applyID = #{0}  
+								UNION SELECT applyID from relation WHERE type=1 AND agreeID = #{0} ) 
+		ORDER by dynamicTime DESC 
+	</select>
+	
+	<select id="getOwnPageDynamicByUserID" resultType="com.bean.Dynamic">
+		SELECT * From 
+			dynamic 
+		Where 
+			dynamicUserID = #{0} 
+		ORDER by dynamicTime DESC LIMIT #{1},#{2}
+	</select>
+	
+	<select id="getOwnDynamicCountByUserID" resultType="Integer" parameterType="Integer">
+		SELECT count(*) From 
+			dynamic 
+		Where 
+			dynamicUserID = #{0} 
+		ORDER by dynamicTime DESC 
+	</select>
+	
+	<select id="getDynamicByID" resultType="com.bean.Dynamic" parameterType="Integer">
+		SELECT * From 
+			dynamic 
+		Where 
+			dynamicID = #{0} 
+	</select>
+	
+	<insert id="addDynamic" parameterType="com.bean.Dynamic">
+		insert into dynamic (dynamicUserID, content, dynamicTime, likeNumber, commentNumber,photo)
+			values(#{dynamicUserID}, #{content}, #{dynamicTime}, 0, 0 ,#{photo})
+	</insert>
+
+	<update id="updateDynamicLikeNumber" parameterType="com.bean.Dynamic" >
+		update dynamic set likeNumber=#{likeNumber} where dynamicID = #{0}
+	</update>
+
+	<update id="updateDynamicCommentNumber" parameterType="com.bean.Dynamic" >
+		update dynamic set commentNumber=#{commentNumber} where dynamicID = #{0}
+	</update>
+	
+	<delete id="deleteDynamicByID" parameterType="Integer" >
+		delete from dynamic where dynamicID = #{0}
+	</delete>
+</mapper>

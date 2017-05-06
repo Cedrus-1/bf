@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.persistence.LeaveWordMapper">
+
+	<select id="getPageLeaveWordsByUserID"  resultType="com.bean.LeaveWord">
+		Select * From leaveword Where receiveUserID=#{0}  order by time desc limit #{1}, #{2} 
+	</select>
+	
+	<select id="getLeaveWordsCountByUserID" parameterType="Integer" resultType="Integer">
+		Select count(*) From leaveword Where receiveUserID=#{0} 
+	</select>
+
+	<insert id="addLeaveWord" parameterType="com.bean.LeaveWord" useGeneratedKeys="true" keyProperty="leaveWordID">
+		insert into leaveword (sendUserID, receiveUserID, leaveWord, time) 
+			values(#{sendUserID}, #{receiveUserID},#{leaveWord}, #{time});
+	</insert>
+	
+	<delete id="deleteLeaveWordByID" parameterType="Integer">
+		delete from leaveword where leaveWordID = #{0}
+	</delete>
+	
+</mapper>

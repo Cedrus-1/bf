@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.persistence.LikeMapper">
+
+	<select id="getLikesByDynamicID" parameterType="Integer" resultType="com.bean.Like">
+		Select * From like Where dynamicID=#{0}
+	</select>
+	
+	<select id="getLikeByIDs" parameterType="Integer" resultType="com.bean.Like">
+		Select * From like Where dynamicID=#{0} And userID=#{1}
+	</select>
+	
+	<insert id="confirmLike" parameterType="com.bean.Like" useGeneratedKeys="true" keyProperty="userID">
+		insert into like(dynamicID, userID ) 
+			values(#{dynamicID}, #{userID} );
+	</insert>
+	
+	<delete id="cancalLike" parameterType="com.bean.Like" >
+		delete from like where dynamicID = #{dynamicID}  AND userID = #{userID} 
+	</delete>
+	
+</mapper>

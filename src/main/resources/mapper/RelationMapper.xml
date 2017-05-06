@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.persistence.RelationMapper">
+
+	<select id="getRelationsByID" parameterType="Integer" resultType="com.bean.Relation">
+		Select * From relation 
+		Where type=1 AND (applyID=#{id} OR agreeID=#{id}) 
+	</select>
+	
+	<select id="getApplyRelationByID" parameterType="Integer" resultType="com.bean.Relation">
+		Select * From relation 
+		Where type=0 AND agreeID=#{id}
+	</select>
+	
+	<select id="getRelationByUserIDs" resultType="com.bean.Relation">
+		Select * From relation 
+		Where (applyID=#{0} AND agreeID=#{1}) OR (agreeID=#{0} AND applyID=#{1})
+	</select>
+	
+	<insert id="addRelation" parameterType="com.bean.Relation" useGeneratedKeys="true" keyProperty="relationID">
+		insert into relation(applyID, agreeID, type) 
+			values(#{applyID}, #{agreeID},#{type});
+	</insert>
+	
+	<update id="updateRelation" parameterType="com.bean.Relation">
+	    update relation 
+		set applyID=#{applyID}, agreeID=#{agreeID}, type=#{type}
+		where relationID=#{relationID}
+	</update>
+	
+	<delete id="deleteRelation" parameterType="Integer" >
+		delete from relation
+		where relationID=#{relationID}
+	</delete>
+	
+</mapper>

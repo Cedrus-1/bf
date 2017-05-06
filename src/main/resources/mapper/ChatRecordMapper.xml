@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.persistence.ChatRecordMapper">
+
+    <select id="getPageRecordByUserIDs" resultType="com.bean.ChatRecord" >
+        SELECT * FROM chatrecord
+          WHERE (sendUserID = #{0} AND receiveUserID=#{1} )
+            OR (sendUserID = #{1} AND receiveUserID=#{0} )
+          ORDER BY "time" DESC
+          limit #{2},#{3}
+    </select>
+
+    <select id="getPageCountRecordByUserIDs" resultType="Integer" >
+        SELECT count(*) FROM
+        WHERE (sendUserID = #{0} AND receiveUserID=#{1} )
+            OR (sendUserID = #{1} AND receiveUserID=#{0} )
+    </select>
+
+    <insert id="addRecord" parameterType="com.bean.ChatRecord" useGeneratedKeys="true" keyProperty="chatRecordID" >
+        insert into chatrecord (sendUserID, receiveUserID, chatRecord, time)
+            values (#{sendUserID},#{receiveUserID},#{chatRecord},#{time});
+    </insert>
+
+    <delete id="deleteRecordsByIDs"  >
+        DELETE FROM chatrecord
+          WHERE (sendUserID = #{0} AND receiveUserID=#{1} )
+            OR (sendUserID = #{1} AND receiveUserID=#{0} )
+    </delete>
+</mapper>

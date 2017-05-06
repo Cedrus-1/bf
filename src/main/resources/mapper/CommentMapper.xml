@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.persistence.CommentMapper">
+
+    <select id="getCommentsByDynamicID" resultType="com.bean.Comment" >
+        SELECT * FROM comment
+          WHERE dynamicID = #{0}
+          ORDER BY "commentTime" DESC
+    </select>
+
+    <insert id="addComment" parameterType="com.bean.Comment" useGeneratedKeys="true" keyProperty="commentID">
+        INSERT INTO comment(dynamicID, commentUserID, commentToUserID, parentCommentID, level, comment, commentTime)
+        VALUES(#{dynamicID},#{commentUserID},#{commentToUserID},#{parentCommentID},#{level},#{comment},#{commentTime})
+    </insert>
+
+    <delete id="deleteCommentByDynamicID"  parameterType="Integer" >
+        DELETE FROM comment
+          WHERE dynamicID = #{0}
+    </delete>
+</mapper>
