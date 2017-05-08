@@ -6,10 +6,12 @@ import com.enums.Message;
 import com.enums.State;
 import com.persistence.CommentMapper;
 import com.persistence.DynamicMapper;
+import com.persistence.MessageMapper;
 import com.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -18,6 +20,8 @@ public class CommentServiceImpl implements CommentService {
     private CommentMapper commentMapper;
     @Autowired
     private DynamicMapper dynamicMapper;
+    @Autowired
+    private MessageMapper messageMapper;
 
     @Override
     public List<Comment> getCommentsByDynamicID(int id) {
@@ -27,9 +31,21 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Message addComment(Comment comment) {
         Message message = new Message();
+
+        int num = commentMapper.getCommentsByDynamicID(comment.getDynamicID()).size();
+        comment.setLevel(num+1);
+
         Dynamic dynamic = dynamicMapper.getDynamicByID(comment.getDynamicID());
         dynamic.setCommentNumber(dynamic.getCommentNumber() + 1);
-        if (commentMapper.addComment(comment) > 0 && dynamicMapper.updateDynamicCommentNumber(dynamic) > 0) {
+        com.bean.Message message1 = new com.bean.Message();
+        message1.setContent(comment.getComment());
+        message1.setMessageTime(new Date());
+        message1.setType("comment");
+        message1.setSendUserID(comment.getCommentUserID());
+        message1.setReceiveUserID(comment.getCommentToUserID());
+        if (commentMapper.addComment(comment) > 0
+                && dynamicMapper.updateDynamicCommentNumber(dynamic) > 0
+                && messageMapper.addMessage(message1)>0) {
             message.setState(State.SUCCESS);
             message.setMessage("评论成功");
         } else {

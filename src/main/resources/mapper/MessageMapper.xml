@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.persistence.MessageMapper">
+
+    <select id="getMessageByMessageID" parameterType="Integer" resultType="com.bean.Message">
+		Select * From message  Where messageID=#{0} AND isRead=1
+	</select>
+
+    <select id="getUserByUserID" parameterType="Integer" resultType="com.bean.Message">
+		SELECT * FROM message WHERE receiveUserID = #{0} AND isRead = 1
+	</select>
+
+    <insert id="addMessage" parameterType="com.bean.Message" useGeneratedKeys="true" keyProperty="messageID">
+		insert into message(type, content, sendUserID, receiveUserID, messageTime, isRead)
+			values(#{type}, #{content},#{sendUserID},#{receiveUserID},#{messageTime},0 );
+	</insert>
+
+    <update id="updateMessage" parameterType="com.bean.Message">
+        update message SET isRead=1
+        WHERE messageID = #{0}
+    </update>
+
+</mapper>

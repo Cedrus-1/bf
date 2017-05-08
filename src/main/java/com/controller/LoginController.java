@@ -34,7 +34,7 @@ public class LoginController {
             session.setAttribute("userID", user.getUserID());
             session.setAttribute("username", user.getUserName());
             attributes.addFlashAttribute("message", "SUCCESS");
-            return "redirect:/index";
+            return "redirect:/user/index";
         } else {
             attributes.addFlashAttribute("error1", "用户名或密码错误");
             return "redirect:/login";
@@ -52,7 +52,7 @@ public class LoginController {
         if (msg.getState() == State.SUCCESS) {
             session.setAttribute("userID", user.getUserID());
             session.setAttribute("username", user.getUserName());
-            return "redirect:/index";
+            return "redirect:/user/index";
         } else {
             attributes.addFlashAttribute("error2", "此用户名太火了，已经被注册了");
             return "redirect:/login";

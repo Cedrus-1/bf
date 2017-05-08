@@ -1,17 +1,17 @@
 package com.enums;
 
 public enum Constellation {
-	Aquarius,// 水瓶
-	Pisces,//双鱼
-	Aries,//白羊
-	Taurus,//金牛
-	Gemini,// 双子
-	Cancer,// 巨蟹
-	Leo,// 狮子
-	Virgo,// 处女
-	Libra,// 天秤
-	Scorpio,// 天蝎
-	Sagittarius,// 射手
-	Capricorn;// 摩羯
+	Aquarius,
+	Pisces,
+	Aries,
+	Taurus,
+	Gemini,
+	Cancer,
+	Leo,
+	Virgo,
+	Libra,
+	Scorpio,
+	Sagittarius,
+	Capricorn;
 
 }

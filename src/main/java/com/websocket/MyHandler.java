@@ -25,10 +25,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 @Component
 public class MyHandler extends TextWebSocketHandler {
 	
-	private static final long serialVersionUID = 1L;
-	
 	private static final Map<Integer,WebSocketSession> userMap;
-
 
     @Autowired
     private UserService userService;
@@ -36,9 +33,6 @@ public class MyHandler extends TextWebSocketHandler {
     private RelationService relationService;
     @Autowired
     private ChatRecordService chatRecordService;
-	
-	/** 日志 */
-    private Logger logger = LoggerFactory.getLogger(MyHandler.class);
 	 
     static {
         userMap = new HashMap<>();
@@ -117,13 +111,7 @@ public class MyHandler extends TextWebSocketHandler {
         member.put("list", list);
         return member.toString();
     }
- 
-    /**
-     * 发消息（无论是否在线）
-     *
-     * @param userCd
-     * @param message
-     */
+
     public void sendMessageToUser(int userCd, TextMessage message) {
         WebSocketSession session = userMap.get(userCd);
         if (session != null && session.isOpen()) {

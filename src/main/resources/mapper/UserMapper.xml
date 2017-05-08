@@ -1,41 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.persistence.UserMapper">
 
-	<select id="getUserByID" parameterType="Integer" resultType="com.bean.User">
+    <select id="getUserByID" parameterType="Integer" resultType="com.bean.User">
 		Select * From user Where userid=#{id}
 	</select>
 
-	<select id="getUserByName" parameterType="String" resultType="com.bean.User">
+    <select id="getUserByName" parameterType="String" resultType="com.bean.User">
 		SELECT * FROM user WHERE username=#{0}
 	</select>
 
-	<insert id="addUser" parameterType="com.bean.User" useGeneratedKeys="true" keyProperty="userID">
+    <select id="getRandomUsersByUser" parameterType="com.bean.User" resultType="com.bean.User">
+        SELECT * FROM user
+        WHERE 1=1
+            <if test="userName!=null and userName!='' "> AND username like CONCAT('%',#{userName},'%') </if>
+            <if test="email!=null and email!='' "> AND email like CONCAT('%',#{email},'%') </if>
+            <if test="sex>0 "> AND sex=#{sex} </if>
+            <if test="age>0 "> AND (age BETWEEN #{age-2} AND #{age+2}) </if>
+            <if test="constellation!=null and constellation!='' "> AND constellation=#{constellation} </if>
+            <if test="work!=null and work!='' "> AND work =#{work}</if>
+            <if test="hometown!=null and hometown!='' "> AND hometown like CONCAT('%',#{hometown},'%') </if>
+            <if test="district!=null and district!='' "> AND district like CONCAT('%',#{district},'%') </if>
+            <if test="school!=null and school!='' "> AND school like CONCAT('%',#{school},'%') </if>
+        ORDER BY RAND()
+        LIMIT 20
+    </select>
+
+    <insert id="addUser" parameterType="com.bean.User" useGeneratedKeys="true" keyProperty="userID">
 		insert into user(userName, password, email) 
 			values(#{userName}, #{password},#{email});
 	</insert>
-	
-	<update id="updateUser" parameterType="com.bean.User">
-	    update user 
-		<trim prefix="set" suffixOverrides=",">
-			<if test="password!=null and password.trim()!='' "> password=#{password}, </if>
-			<if test="email!=null and email!='' "> email=#{email}, </if>
-			<if test="sex!=0"> sex=#{sex}, </if>
-			<if test="birth!=null "> birth=#{birth}, </if>
-			<if test="constellation!=null and constellation!='' "> constellation=#{constellation}, </if>
-			<if test="work!=null and work!='' "> work=#{work}, </if>
-			<if test="hometown!=null and hometown!='' "> hometown=#{hometown}, </if>
-			<if test="district!=null and district!='' "> district=#{district}, </if>
-			<if test="school!=null and school!='' "> school=#{school}, </if>
-			<if test="company!=null and company!='' "> company=#{company}, </if>
-			<if test="phone!=null and phone!='' "> phone=#{phone}, </if>
-			<if test="personalizedSignature!=null and personalizedSignature!='' "> personalizedSignature=#{personalizedSignature}, </if>
-			<if test="photo!=null and photo!='' "> photo=#{photo}, </if>
-		</trim>
-		where userID=#{userID}
-	</update>
-	
+
+    <update id="updateUser" parameterType="com.bean.User">
+        update user
+        <trim prefix="set" suffixOverrides=",">
+            <if test="password!=null and password.trim()!='' "> password=#{password},</if>
+            <if test="email!=null and email!='' "> email=#{email},</if>
+            <if test="sex!=0"> sex=#{sex},</if>
+            <if test="birth!=null "> birth=#{birth},</if>
+            <if test="constellation!=null and constellation!='' "> constellation=#{constellation},</if>
+            <if test="work!=null and work!='' "> work=#{work},</if>
+            <if test="hometown!=null and hometown!='' "> hometown=#{hometown},</if>
+            <if test="district!=null and district!='' "> district=#{district},</if>
+            <if test="school!=null and school!='' "> school=#{school},</if>
+            <if test="company!=null and company!='' "> company=#{company},</if>
+            <if test="phone!=null and phone!='' "> phone=#{phone},</if>
+            <if test="personalizedSignature!=null and personalizedSignature!='' ">
+                personalizedSignature=#{personalizedSignature},
+            </if>
+            <if test="photo!=null and photo!='' ">photo=#{photo},</if>
+        </trim>
+        where userID=#{userID}
+    </update>
+
 </mapper>

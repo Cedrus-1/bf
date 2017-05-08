@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="getCommentsByDynamicID" resultType="com.bean.Comment" >
         SELECT * FROM comment
           WHERE dynamicID = #{0}
-          ORDER BY "commentTime" DESC
+          ORDER BY commentTime DESC
     </select>
 
     <insert id="addComment" parameterType="com.bean.Comment" useGeneratedKeys="true" keyProperty="commentID">
@@ -18,6 +18,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <delete id="deleteCommentByDynamicID"  parameterType="Integer" >
         DELETE FROM comment
-          WHERE dynamicID = #{0}
+          WHERE dynamicID = #{0} OR parentCommentID=#{0}
     </delete>
 </mapper>

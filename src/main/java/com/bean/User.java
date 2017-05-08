@@ -8,6 +8,7 @@ public class User {
 	private String password;
 	private String email;
 	private int sex;
+	private int age;
 	private Date birth;
 	private String constellation;
 	private String work;
@@ -42,6 +43,15 @@ public class User {
 	public void setSex(int sex) {
 		this.sex = sex;
 	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
 	public Date getBirth() {
 		return birth;
 	}
