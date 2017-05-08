@@ -11,7 +11,7 @@
 <html>
 <head>
     <jsp:include page="include/common.jsp"/>
-    <title>Title</title>
+    <title>主页</title>
 </head>
 <body>
 <%--<jsp:include page="include/header.jsp"/>--%>
