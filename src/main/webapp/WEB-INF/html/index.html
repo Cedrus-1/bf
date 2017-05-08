@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>主页</title>
+    <link rel="stylesheet" href="../../static/css/paper-bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/css/layer.css">
+    <link rel="stylesheet" href="../../static/css/main.css">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                 </button>
+                <a class="navbar-brand" href="#">BF</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">主页</a></li>
+                    <li><a href="#">热点</a></li>
+                    <li><a href="#">聊天</a></li>
+                </ul>
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="找啊找啊找朋友">
+                    </div>
+                    <button type="submit" class="btn btn-default">搜索</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right aaa">
+                    <li><img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2883000726,4261883977&fm=23&gp=0.jpg"
+                            class="avatar-me img-responsive img-rounded" alt="Responsive image"></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tom <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">个人中心</a></li>
+                            <li><a href="#">消息</a></li>
+                            <li><a href="#">设置</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">注销</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <div class="container">
+        <div class="recom-friend">
+            <h3>好友推荐</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="recom-friend-item">
+                        <div class="recom-friend-item-body clearfix">
+                            <div class="recom-friend-item-left pull-left">
+                                <img class="img-responsive img-rounded" src="../../static/img/large.gif" alt="...">
+                            </div>
+                            <div class="recom-friend-item-right pull-left">
+                                <a href="#"> <span class="recom-friend-item-nickname">tom</span></a>
+                                <div class="recom-friend-item-detail">
+                                    <span class="recom-friend-item-detail-sex"><img src="../../static/img/male.png" alt=""></span>
+                                    <span class="recom-friend-item-detail-age">20岁</span>
+                                </div>
+                                <p class="recom-friend-item-signature">心里有太多浓重的阴影，被生活混淆的烦躁不安。心里有太多浓重的阴影，被生活混淆的烦躁不安。心里有太多浓重的阴影，被生活混淆的烦躁不安。心里有太多浓重的阴影，被生活混淆的烦躁不安。心里有太多浓重的阴影，被生活混淆的烦躁不安。</p>
+                            </div>
+                        </div>
+                        <div class="recom-friend-item-footer">
+                            <div class="row">
+                                <!--start平板以上屏幕大小显示-->
+                                <div class="hidden-xs col-md-3 col-md-offset-2">
+                                    <a href="#" class="btn btn-default">查看主页</a>
+                                </div>
+                                <!--如果已经是好友就不要显示下面这个div-->
+                                <div class="hidden-xs col-md-3 col-md-offset-2">
+                                    <input type="hidden" name="uid" value="填充uid">
+                                    <button class="addFriend btn btn-primary">添加好友</button>
+                                </div>
+                                <!--end平板以上屏幕大小显示-->
+
+                                <!--start手机显示-->
+                                <div class="visible-xs">
+                                    <a href="#" class="btn-block btn btn-default">查看主页</a>
+                                </div>
+                                <!--如果已经是好友就不要显示下面这个div-->
+                                <div class="visible-xs">
+                                    <input type="hidden" name="uid" value="填充uid">
+                                    <button class="addFriend btn-block btn btn-primary">添加好友</button>
+                                </div>
+                                <!--end手机显示-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="recom-friend-item">
+                        <div class="recom-friend-item-body clearfix">
+                            <div class="recom-friend-item-left pull-left">
+                                <img class="avatar img-responsive img-rounded" src="../../static/img/large.gif" alt="...">
+                            </div>
+                            <div class="recom-friend-item-right pull-left">
+                                <a href="#"> <span class="recom-friend-item-nickname">tom</span></a>
+                                <div class="recom-friend-item-detail">
+                                    <span class="recom-friend-item-detail-sex"><img src="../../static/img/male.png" alt=""></span>
+                                    <span class="recom-friend-item-detail-age">20岁</span>
+                                </div>
+                                <p class="recom-friend-item-signature">心里有太多浓重的阴影，被生活混淆的烦躁不安。心里有太多浓重的阴影，被生活混淆的烦躁不安。心里有太多浓重的阴影，被生活混淆的烦躁不安。心里有太多浓重的阴影，被生活混淆的烦躁不安。心里有太多浓重的阴影，被生活混淆的烦躁不安。</p>
+                            </div>
+                        </div>
+                        <div class="recom-friend-item-footer">
+                            <div class="row">
+                                <div class="col-md-3 col-md-offset-2">
+                                    <a href="#" class="btn btn-default">查看主页</a>
+                                </div>
+                                <!--如果已经是好友就不要显示下面这个div-->
+                                <div class="col-md-3 col-md-offset-2">
+                                    <input type="hidden" name="uid" value="填充uid">
+                                    <button class="addFriend btn btn-primary">添加好友</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="recom-friend-item">
+                        <div class="recom-friend-item-body clearfix">
+                            <div class="recom-friend-item-left pull-left">
+                                <img class="avatar img-responsive img-rounded" src="../../static/img/large.gif" alt="...">
+                            </div>
+                            <div class="recom-friend-item-right pull-left">
+                                <a href="#"> <span class="recom-friend-item-nickname">tom</span></a>
+                                <div class="recom-friend-item-detail">
+                                    <span class="recom-friend-item-detail-sex"><img src="../../static/img/male.png" alt=""></span>
+                                    <span class="recom-friend-item-detail-age">20岁</span>
+                                </div>
+                                <p class="recom-friend-item-signature">心里有太多浓重的阴影，被生活混淆的烦躁不安。心里有太多浓重的阴影，被生活混淆的烦躁不安。心里有太多浓重的阴影，被生活混淆的烦躁不安。心里有太多浓重的阴影，被生活混淆的烦躁不安。心里有太多浓重的阴影，被生活混淆的烦躁不安。</p>
+                            </div>
+                        </div>
+                        <div class="recom-friend-item-footer">
+                            <div class="row">
+                                <div class="col-md-3 col-md-offset-2">
+                                    <a href="#" class="btn btn-default">查看主页</a>
+                                </div>
+                                <!--如果已经是好友就不要显示下面这个div-->
+                                <div class="col-md-3 col-md-offset-2">
+                                    <input type="hidden" name="uid" value="填充uid">
+                                    <button class="addFriend btn btn-primary">添加好友</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../static/js/jquery-2.1.4.min.js"></script>
+    <script src="../../static/js/bootstrap.min.js"></script>
+    <script src="../../static/js/layer.js"></script>
+    <script src="../../static/js/main.js"></script>
+</body>
+
+</html>
