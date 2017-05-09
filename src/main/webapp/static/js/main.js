@@ -5,15 +5,17 @@ $(function () {
             container: 'body'
         });
         addFriend();
-        repLeave()
+        // repLeave()
         deleteLeaveMsg()
         switchRepitem()
     };
     // 添加好友
     function addFriend() {
         var $addFriendBtn = $('.addFriend');
-        $addFriendBtn.click(function () {
-            var $uid = $addFriendBtn.prev().val();
+        $addFriendBtn.click(function (e) {
+            e.preventDefault();
+            var $uid = $addFriendBtn.prevAll('input').val();
+            alert($uid);
             var $that = $(this);
             $.post('/addFriend', {
                 userID: $uid
