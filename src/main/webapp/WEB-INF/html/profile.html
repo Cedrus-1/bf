@@ -92,6 +92,7 @@
                         <h2>留言墙</h2>
                     </div>
                     <div class="panel-body">
+                        <!--每一个留言项，此处forEach-->
                         <div class="leaveMsgItem">
                             <div class="leaveMsgItem-head clearfix">
                                 <div class="pull-left">
@@ -114,10 +115,42 @@
                                 </div>
                             </div>
                             <div class="rep-list">
-                                <div class="arrow"></div>
-                                <p>ddsdsdsdsds</p>
-                                <p>ddsdsdsdsds</p>
-                                <p>ddsdsdsdsds</p>
+                                <div class="arrow" data-toggle="tooltip" data-placement="bottom" title="点击显示回复"></div>
+                                <div class="rep-item clearfix">
+                                    <div class="rep-item-from pull-left">
+                                        <img class="img-responsive img-rounded" src="../../static/img/large.gif" alt="回复人头像">
+                                        <span>Tom</span>
+                                    </div>
+                                    <span class="pull-left">回复</span>
+                                    <div class="rep-item-to pull-left">
+                                        <img class="img-responsive img-rounded" src="../../static/img/large.gif" alt="被回复人头像">
+                                        <span>jack</span>
+                                    </div>
+                                    <p class="rep-item-content">
+                                        春天还没有开始，风已微温，不再刺骨。因为工作，刚烫了发，颈窝里总是觉得痒。我伸手去拨开贴在皮肤上的头发，陡然地，风灌进来，又连忙把头发拨回去。我还是竖了领子，又裹了一道围巾。 春天还没有开始，风已微温，不再刺骨。因为工作，刚烫了发，颈窝里总是觉得痒。我伸手去拨开贴在皮肤上的头发，陡然地，风灌进来，又连忙把头发拨回去。我还是竖了领子，又裹了一道围巾。
+                                        春天还没有开始，风已微温，不再刺骨。因为工作，刚烫了发，颈窝里总是觉得痒。我伸手去拨开贴在皮肤上的头发，陡然地，风灌进来，又连忙把头发拨回去。我还是竖了领子，又裹了一道围巾。
+                                        春天还没有开始，风已微温，不再刺骨。因为工作，刚烫了发，颈窝里总是觉得痒。我伸手去拨开贴在皮肤上的头发，陡然地，风灌进来，又连忙把头发拨回去。我还是竖了领子，又裹了一道围巾。
+                                    </p>
+                                </div>
+                                <div class="rep-item clearfix">
+                                    <div class="rep-item-from pull-left">
+                                        <!--回复人nickname和头像-->                                        
+                                        <span>Tom</span>
+                                        <img class="img-responsive img-rounded" src="../../static/img/large.gif" alt="回复人头像">
+                                    </div>
+                                    <span class="pull-left">回复</span>
+                                    <div class="rep-item-to pull-left">
+                                        <!--被回复人nickname和头像-->
+                                        <span>jack</span>
+                                        <img class="img-responsive img-rounded" src="../../static/img/large.gif" alt="被回复人头像">
+                                    </div>
+                                    <p class="rep-item-content">
+                                        <!--回复内容-->
+                                        春天还没有开始，风已微温，不再刺骨。因为工作，刚烫了发，颈窝里总是觉得痒。我伸手去拨开贴在皮肤上的头发，陡然地，风灌进来，又连忙把头发拨回去。我还是竖了领子，又裹了一道围巾。 春天还没有开始，风已微温，不再刺骨。因为工作，刚烫了发，颈窝里总是觉得痒。我伸手去拨开贴在皮肤上的头发，陡然地，风灌进来，又连忙把头发拨回去。我还是竖了领子，又裹了一道围巾。
+                                        春天还没有开始，风已微温，不再刺骨。因为工作，刚烫了发，颈窝里总是觉得痒。我伸手去拨开贴在皮肤上的头发，陡然地，风灌进来，又连忙把头发拨回去。我还是竖了领子，又裹了一道围巾。
+                                        春天还没有开始，风已微温，不再刺骨。因为工作，刚烫了发，颈窝里总是觉得痒。我伸手去拨开贴在皮肤上的头发，陡然地，风灌进来，又连忙把头发拨回去。我还是竖了领子，又裹了一道围巾。
+                                    </p>
+                                </div>
                             </div>
                             <div class="leaveMsgItem-footer">
                                 <form action="#" method="POST" class="rep-form clearfix">
