@@ -107,7 +107,7 @@
 .leaveMsgItem {
     padding: 10px 5px;
     margin-bottom: 20px;
-    box-shadow: 0 3px 2px rgba(125, 125, 125, 0.4);
+    border-bottom: 1px dashed #ccc;
 }
 
 .leaveMsgItem-head button {
@@ -188,12 +188,13 @@
     text-overflow: ellipsis;
 }
 
-.dynamic-form textarea{
+.dynamic-form textarea {
     border-radius: 8px;
     border: 1px solid rgba(125, 125, 125, 0.3);
     padding: 10px 20px;
 }
-.dynamicH3{
+
+.dynamicH3 {
     letter-spacing: 20px;
     color: #eb6864;
     font-weight: normal;
@@ -202,6 +203,7 @@
     line-height: 50px;
     border-bottom: 2px solid #ccc;
 }
+
 .dynamicItem {
     padding-bottom: 20px;
     margin-bottom: 20px;
@@ -214,4 +216,11 @@
 
 .dynamicItem-info {
     margin-right: 20px;
+}
+
+.profile-info nav button {
+    outline: none;
+    margin-right: 20px;
+    border: 1px solid #dddddd;
+    border-radius: 15px;
 }

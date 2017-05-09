@@ -5,27 +5,29 @@ $(function () {
             container: 'body'
         });
         addFriend();
-        repLeave()
+        // repLeave()
         deleteLeaveMsg()
         switchRepitem()
     };
     // 添加好友
     function addFriend() {
         var $addFriendBtn = $('.addFriend');
-        $addFriendBtn.click(function () {
-            var $uid = $addFriendBtn.prev().val();
+        $addFriendBtn.click(function (e) {
+            e.preventDefault();
+            var $uid = $addFriendBtn.prevAll('input').val();
+            alert($uid);
             var $that = $(this);
             $.post('/addFriend', {
                 userID: $uid
             }, function (data) {
-               /* var jsonData = $.parseJSON(data);*/
+                /* var jsonData = $.parseJSON(data);*/
                 if (data) {
                     layer.open({
                         title: '好友申请',
                         content: '好友申请成功'
                     });
                     $that.text('已申请好友').removeClass('btn-primary').addClass('btn-success disabled').unbind("click");
-                }else {
+                } else {
                     layer.open({
                         title: '好友申请',
                         content: '你已经申请过了'
@@ -41,7 +43,7 @@ $(function () {
         $deleteLeaveMsgBtn.click(function () {
             var deleteUid = $(this).next().val();
             var $leaveMsgItem = $(this).parents('.leaveMsgItem');
-            $.post('/test/deleteLeaveMsg', {
+            $.post('/deleteLeaveWord', {
                 uid: deleteUid //删除留言的uid
             }, function (data) {
                 var jsonData = $.parseJSON(data);
