@@ -15,16 +15,22 @@ $(function () {
         $addFriendBtn.click(function () {
             var $uid = $addFriendBtn.prev().val();
             var $that = $(this);
-            $.post('/test/addfriend', { //TODO URL还没有填写真实的
-                uid: $uid
+            $.post('/addFriend', {
+                userID: $uid
             }, function (data) {
-                var jsonData = $.parseJSON(data);
-                if (jsonData.code) {
+               /* var jsonData = $.parseJSON(data);*/
+                if (data) {
                     layer.open({
-                        title: '添加好友',
-                        content: '添加好友成功'
+                        title: '好友申请',
+                        content: '好友申请成功'
                     });
-                    $that.text('已添加好友').removeClass('btn-primary').addClass('btn-success disabled').unbind("click");
+                    $that.text('已申请好友').removeClass('btn-primary').addClass('btn-success disabled').unbind("click");
+                }else {
+                    layer.open({
+                        title: '好友申请',
+                        content: '你已经申请过了'
+                    });
+                    $that.text('已申请好友').removeClass('btn-primary').addClass('btn-success disabled').unbind("click");
                 }
             })
         });
