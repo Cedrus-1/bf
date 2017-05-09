@@ -100,7 +100,9 @@
                                     <span class="leaveMsg-time">2017-02-02</span>
                                 </div>
                                 <div class="pull-right">
-                                    <button class="btn btn-sm btn-danger">删除</button>
+                                    <button class="deleteLeaveMsg-btn btn btn-sm btn-danger">删除</button>
+                                    <!--留言的ID，隐藏域，下面回复输入框还有一个，懒得一层一层获取，你填充两个吧-->
+                                    <input type="hidden" name="uid" value="这里是留言的uid">
                                 </div>
                             </div>
                             <div class="leaveMsgItem-body clearfix">
@@ -114,6 +116,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--回复列表-->
                             <div class="rep-list">
                                 <div class="arrow" data-toggle="tooltip" data-placement="bottom" title="点击显示回复"></div>
                                 <div class="rep-item clearfix">
@@ -152,10 +155,12 @@
                                     </p>
                                 </div>
                             </div>
+                            <!--回复输入框-->
                             <div class="leaveMsgItem-footer">
                                 <form action="#" method="POST" class="rep-form clearfix">
                                     <div class="form-group">
-                                        <input type="hidden" name="uid" value="这里是这个人的uid">
+                                        <!--留言的ID，隐藏域-->
+                                        <input type="hidden" name="uid" value="这里是留言的uid">
                                         <textarea rows="6" cols="20" name="rep-text" class="form-control" placeholder="输入你的回复内容"></textarea>
                                     </div>
                                     <div class="form-group pull-right">
