@@ -5,7 +5,7 @@ $(function () {
             container: 'body'
         });
         addFriend();
-        // repLeave()
+        repLeave()
         deleteLeaveMsg()
         switchRepitem()
     };
@@ -67,11 +67,13 @@ $(function () {
         var $repLeaveBtn = $('.leaveMsgItem-footer .rep-btn');
         $repLeaveBtn.click(function () {
             var $Thisfooter = $(this).parents('.leaveMsgItem-footer');
-            var $repUid = $Thisfooter.find('input').val();
+            var $inputList = $Thisfooter.find('input');
             var $repText = $Thisfooter.find('textarea').val();
-            $.post('/test/repLeave', {
-                uid: $repUid, //回复的留言的uid
-                repText: $repText //回复内容
+            $.post('/addLeaveWord', {
+                leaveWordID: $inputList.eq(1).val(), //回复的留言的uid
+                sendUserID: $inputList.eq(2).val(),
+                receiveUserID: $inputList.eq(3).val(),
+                content: $repText //回复内容
             }, function (data) {
                 var jsonData = $.parseJSON(data);
                 if (jsonData) {
