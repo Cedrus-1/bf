@@ -15,8 +15,8 @@ $(function () {
         $addFriendBtn.click(function () {
             var $uid = $addFriendBtn.prev().val();
             var $that = $(this);
-            $.post('/test/addfriend', { //TODO URL还没有填写真实的
-                uid: $uid
+            $.post('/addFriend', {
+                userID: $uid
             }, function (data) {
                /* var jsonData = $.parseJSON(data);*/
                 if (data) {
