@@ -9,6 +9,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		Select * From relation 
 		Where type=1 AND (applyID=#{id} OR agreeID=#{id}) 
 	</select>
+
+	<select id="getAllRelationsByID" parameterType="Integer" resultType="com.bean.Relation">
+		Select * From relation
+		Where applyID=#{id} OR agreeID=#{id}
+	</select>
 	
 	<select id="getApplyRelationByID" parameterType="Integer" resultType="com.bean.Relation">
 		Select * From relation 

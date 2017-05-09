@@ -1,8 +1,10 @@
 package com.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import com.persistence.MessageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,8 @@ public class RelationServiceImpl implements RelationService {
 	private RelationMapper relationMapper;
 	@Autowired
 	private UserMapper userMapper;
+	@Autowired
+	private MessageMapper messageMapper;
 
 	@Override
 	public List<User> getFriendsByID(int id) {
@@ -51,7 +55,15 @@ public class RelationServiceImpl implements RelationService {
 		relation.setApplyID(applyID);
 		relation.setAgreeID(agreeID);
 		relation.setType(0);
-		if(relationMapper.addRelation(relation)>0){
+
+		com.bean.Message message1 = new com.bean.Message();
+		message1.setSendUserID(applyID);
+		message1.setReceiveUserID(agreeID);
+		message1.setType("好友申请");
+		message1.setContent("好友申请");
+		message1.setMessageTime(new Date());
+
+		if(relationMapper.addRelation(relation)>0 && messageMapper.addMessage(message1)>0){
 			message.setState(State.SUCCESS);
 			message.setMessage("申请成功");
 		}else{

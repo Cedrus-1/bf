@@ -46,27 +46,29 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView("index");
         User user = userService.getUserByID((int) session.getAttribute("userID"));
         //推荐用户
-        List<User> recommend = userService.getRandomUsersByUser(user,user.getUserID());
-        //Page<Dynamic> dynamicPage = dynamicService.getPageDynamicByUserID((int) session.getAttribute("userID"), 1, 20);
+        User query = new User();
+        query.setAge(user.getAge());
+        if(user.getSex() ==0){
+            query.setSex(0);
+        }else {
+            query.setSex(3-user.getSex());
+        }
+        List<User> recommend = userService.getRandomUsersByUser(query,user.getUserID());
         modelAndView.addObject("user", user);
         modelAndView.addObject("recommend", recommend);
         return modelAndView;
     }
 
     //个人主页
-    @RequestMapping("/userInfo")
-    public ModelAndView userInfo(HttpSession session) {
-        ModelAndView modelAndView = new ModelAndView("userInfo");
-        User user = userService.getUserByID((int) session.getAttribute("userID"));
+    @RequestMapping("/profile")
+    public ModelAndView userInfo(int userID) {
+        ModelAndView modelAndView = new ModelAndView("profile");
+        User user = userService.getUserByID(userID);
         modelAndView.addObject("user", user);
         return modelAndView;
     }
 
-    @RequestMapping(value = "/userInfo", method = RequestMethod.POST)
-    public String updateInfo(String email, int sex, HttpSession session) {
-        User user = userService.getUserByID((int) session.getAttribute("userID"));
-        return "";
-    }
+
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public String upload(HttpServletRequest request, RedirectAttributes attributes, HttpSession session) {

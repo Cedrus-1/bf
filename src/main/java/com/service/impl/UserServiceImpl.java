@@ -28,8 +28,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> getRandomUsersByUser(User user, int userID) {
-		//得到该用户的好友关系
-		List<Relation> relations = relationMapper.getRelationsByID(userID);
+		//得到该用户的好友关系,包括已经申请和已经是好友的关系
+		List<Relation> relations = relationMapper.getAllRelationsByID(userID);
 		//根据条件随机推荐一些用户，其中可能包含已经是好友的用户
 		List<User> users = userMapper.getRandomUsersByUser(user);
 		List<User> result = new ArrayList<>();
@@ -39,6 +39,8 @@ public class UserServiceImpl implements UserService {
 			if(relation.getAgreeID()==userID){
 				for(User user2 : users){
 					if( relation.getApplyID() == user2.getUserID()){
+						result.remove(user2);
+					}if(user2.getUserID() == userID){
 						result.remove(user2);
 					}
 				}
@@ -50,7 +52,7 @@ public class UserServiceImpl implements UserService {
 				}
 			}
 		}
-		return result;
+		return result.size()>6?result.subList(0,6):result;
 	}
 
 	@Override

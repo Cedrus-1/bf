@@ -7,6 +7,8 @@ import com.bean.Relation;
 public interface RelationMapper {
 	
 	List<Relation> getRelationsByID(int id);
+
+	List<Relation> getAllRelationsByID(int id);
 	
 	List<Relation> getApplyRelationByID(int id);
 	

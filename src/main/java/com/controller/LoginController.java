@@ -33,6 +33,7 @@ public class LoginController {
         if (user != null && user.getPassword().equals(password)) {
             session.setAttribute("userID", user.getUserID());
             session.setAttribute("username", user.getUserName());
+            session.setAttribute("photo",user.getPhoto());
             attributes.addFlashAttribute("message", "SUCCESS");
             return "redirect:/user/index";
         } else {
@@ -52,6 +53,7 @@ public class LoginController {
         if (msg.getState() == State.SUCCESS) {
             session.setAttribute("userID", user.getUserID());
             session.setAttribute("username", user.getUserName());
+            session.setAttribute("photo",user.getPhoto());
             return "redirect:/user/index";
         } else {
             attributes.addFlashAttribute("error2", "此用户名太火了，已经被注册了");
@@ -63,6 +65,7 @@ public class LoginController {
     public String logout(HttpSession session) {
         session.removeAttribute("userID");
         session.removeAttribute("username");
+        session.removeAttribute("photo");
         return "redirect:/login";
     }
 

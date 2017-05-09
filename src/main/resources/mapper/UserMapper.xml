@@ -19,7 +19,7 @@
             <if test="userName!=null and userName!='' "> AND username like CONCAT('%',#{userName},'%') </if>
             <if test="email!=null and email!='' "> AND email like CONCAT('%',#{email},'%') </if>
             <if test="sex>0 "> AND sex=#{sex} </if>
-            <if test="age>0 "> AND (age BETWEEN #{age-2} AND #{age+2}) </if>
+            <if test="age>0 "> AND (age BETWEEN #{age}-2 AND #{age}+2 )</if>
             <if test="constellation!=null and constellation!='' "> AND constellation=#{constellation} </if>
             <if test="work!=null and work!='' "> AND work =#{work}</if>
             <if test="hometown!=null and hometown!='' "> AND hometown like CONCAT('%',#{hometown},'%') </if>

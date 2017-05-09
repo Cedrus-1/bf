@@ -6,69 +6,43 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--
-<nav class="navbar navbar-default navbar-fixed-top bootstrap-admin-navbar bootstrap-admin-navbar-under-small" role="navigation">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="collapse navbar-collapse main-navbar-collapse">
-                    <a class="navbar-brand" href=""><strong>在线交友网站</strong></a>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a href="#" role="button" class="dropdown-toggle" data-hover="dropdown"> <i class="glyphicon glyphicon-user"></i> 欢迎您，${sessionScope.get("username")} <i class="caret"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">资料</a></li>
-                                <li role="presentation" class="divider"></li>
-                                <li><a href="/logout">注销</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</nav>
---%>
 
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <%--<a class="navbar-brand page-scroll" href="#page-top">Your Wedding</a>--%>
+            <a class="navbar-brand" href="/user/index">BF</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav nav-justified ">
-                <li class="hidden">
-                    <a href="#page-top"></a>
-                </li>
-                <li class="active">
-                    <a class="page-scroll" href="/index">个人主页</a>
-                </li>
-                <li>
-                    <a class="page-scroll" href="#">热门动态</a>
-                </li>
-                <li>
-                    <a class="page-scroll" href="#">个人动态</a>
-                </li>
-                <li>
-                    <a class="page-scroll" href="#">留言板</a>
-                </li>
-                <li>
-                    <a class="page-scroll" href="#">个人设置</a>
-                </li>
+        <div class="collapse navbar-collapse" id="navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/user/index">主页</a></li>
+                <li><a href="#">热点</a></li>
+                <li><a href="#">聊天</a></li>
+            </ul>
+            <form class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="找啊找啊找朋友">
+                </div>
+                <button type="submit" class="btn btn-default">搜索</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right aaa">
+                <li><img src="/${sessionScope.get("photo")}"
+                         class="avatar-me img-responsive img-rounded" alt="Responsive image"></li>
                 <li class="dropdown">
-                    <a href="#" role="button" class="dropdown-toggle" data-hover="dropdown"> <i class="glyphicon glyphicon-user"></i> 欢迎您，${sessionScope.get("username")} <i class="caret"></i></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.get("username")} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">资料</a></li>
-                        <li role="presentation" class="divider"></li>
+                        <li><a href="/user/profile?userID=${sessionScope.get("userID")}">个人中心</a></li>
+                        <li><a href="#">消息</a></li>
+                        <li><a href="#">设置</a></li>
+                        <li role="separator" class="divider"></li>
                         <li><a href="/logout">注销</a></li>
                     </ul>
                 </li>
