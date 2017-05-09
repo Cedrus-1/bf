@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.persistence.MessageMapper;
+import com.persistence.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,8 @@ public class LeaveWordServiceImpl implements LeaveWordService {
 	private LeaveWordMapper leaveWordMapper;
 	@Autowired
 	private MessageMapper messageMapper;
+	@Autowired
+	private UserMapper userMapper;
 
 	@Override
 	public Page<List<LeaveWord>> getPageLeaveWordsByUserID(int id, int pageNum, int pageSize) {
@@ -29,8 +32,15 @@ public class LeaveWordServiceImpl implements LeaveWordService {
 		pageNum = (pageNum>0)?pageNum:1;
 		List<LeaveWord> query = leaveWordMapper.getPageLeaveWordsByUserID(id, (pageNum-1)*pageSize, pageSize);
 		for(LeaveWord leaveWord:query){
-			List<LeaveWord> temp = leaveWordMapper.getLeaveWordCommentByID(leaveWord.getLeaveWordID());
+			List<LeaveWord> temp = new ArrayList<>();
+			leaveWord.setSendUser(userMapper.getUserByID(leaveWord.getSendUserID()));
+			leaveWord.setReceiveUser(userMapper.getUserByID(leaveWord.getReceiveUserID()));
 			temp.add(leaveWord);
+			temp.addAll(leaveWordMapper.getLeaveWordCommentByID(leaveWord.getLeaveWordID()));
+			for(LeaveWord leaveWord1:temp){
+				leaveWord1.setSendUser(userMapper.getUserByID(leaveWord1.getSendUserID()));
+				leaveWord1.setReceiveUser(userMapper.getUserByID(leaveWord1.getReceiveUserID()));
+			}
 			data.add(temp);
 		}
 		int totalRecords = leaveWordMapper.getLeaveWordsCountByUserID(id);

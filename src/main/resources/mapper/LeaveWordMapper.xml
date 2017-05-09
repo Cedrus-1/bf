@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="getLeaveWordCommentByID" parameterType="Integer" resultType="com.bean.LeaveWord">
-		SELECT * FROM leaveword WHERE parentLeaveWordID=#{1}
+		SELECT * FROM leaveword WHERE parentLeaveWordID=#{1} ORDER BY time
 	</select>
 	
 	<select id="getLeaveWordsCountByUserID" parameterType="Integer" resultType="Integer">
@@ -18,8 +18,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<insert id="addLeaveWord" parameterType="com.bean.LeaveWord" useGeneratedKeys="true" keyProperty="leaveWordID">
-		insert into leaveword (sendUserID, receiveUserID, leaveWord, time,level)
-			values(#{sendUserID}, #{receiveUserID},#{leaveWord}, #{time},#{level});
+		insert into leaveword (sendUserID, receiveUserID, leaveWord, time, parentLeaveWordID,level)
+			values(#{sendUserID}, #{receiveUserID},#{leaveWord}, #{time},#{parentLeaveWordID},#{level});
 	</insert>
 	
 	<delete id="deleteLeaveWordByID" parameterType="Integer">

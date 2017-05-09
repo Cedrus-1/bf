@@ -10,6 +10,8 @@ public class LeaveWord {
 	private Date time;
 	private int parentLeaveWordID;
 	private int level;
+	private User sendUser;
+	private User receiveUser;
 	
 	public int getLeaveWordID() {
 		return leaveWordID;
@@ -53,9 +55,20 @@ public class LeaveWord {
 	public void setLevel(int level) {
 		this.level = level;
 	}
-	
 
-	
-	
+	public User getSendUser() {
+		return sendUser;
+	}
 
+	public void setSendUser(User sendUser) {
+		this.sendUser = sendUser;
+	}
+
+	public User getReceiveUser() {
+		return receiveUser;
+	}
+
+	public void setReceiveUser(User receiveUser) {
+		this.receiveUser = receiveUser;
+	}
 }

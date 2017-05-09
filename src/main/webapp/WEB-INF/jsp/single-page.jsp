@@ -56,6 +56,31 @@
                     </dl>
                 </div>
             </div>
+            <nav aria-label="...">
+                <ul class="pager">
+                    <% int flag = 0;%>
+                    <c:forEach var="item" items="${friends}">
+                        <c:if test="${item.userID==user.userID}">
+                            <% flag = 1;%>
+                        </c:if>
+                    </c:forEach>
+                    <% if(flag==1){ %>
+                    <!--如果是好友就像是发消息按钮，如果不是好友就显示加好友按钮，两个只显示其中一个-->
+                    <!--这里填充上面对应信息人的uid，添加好友会用到-->
+                    <input type="hidden" name="uid" value="填充uid">
+                    <!--第一种显示下面这个-->
+                    <li><button class="btn btn-default">发消息</button></li>
+                    <% }else {%>
+                    <!--第二种显示下面这个-->
+                    <li>
+                        <input type="hidden"  name="uid" value="${user.userID}">
+                        <button class="addFriend btn btn-primary">加好友</button>
+                    </li>
+                    <% }%>
+
+
+                </ul>
+            </nav>
         </div>
         <div class="col-md-8 profile-leaveWall">
             <div class="hidden-xs line"></div>
@@ -64,7 +89,7 @@
                     <h2>留言墙</h2>
                 </div>
                 <div class="panel-body">
-                    <!--每一个留言项，此处forEach-->
+                    <!--只显示两条留言-->
                     <c:forEach var="item" items="${pages.pageDatas}">
                         <div class="leaveMsgItem">
                             <div class="leaveMsgItem-head clearfix">
@@ -74,11 +99,6 @@
                                     <fmt:formatDate type="both" dateStyle="medium" timeStyle="medium"
                                                     value="${item.get(0).time}"/>
                                 </span>
-                                </div>
-                                <div class="pull-right">
-                                    <button class="deleteLeaveMsg-btn btn btn-sm btn-danger">删除</button>
-                                    <!--留言的ID，隐藏域，下面回复输入框还有一个，懒得一层一层获取，你填充两个吧-->
-                                    <input type="hidden" name="uid" value="${item.get(0).leaveWordID}">
                                 </div>
                             </div>
                             <div class="leaveMsgItem-body clearfix">
@@ -114,47 +134,47 @@
                                     </c:if>
                                 </c:forEach>
                             </div>
+
+                            <c:if test="${item.get(0).sendUserID==sessionScope.get('userID')}">
+
                             <div class="leaveMsgItem-footer">
                                 <form action="/addLeaveWord" method="POST" class="rep-form clearfix">
                                     <div class="form-group">
                                         <input type="hidden" name="sendUserID" value="${sessionScope.get("userID")}">
                                         <c:if test="${item.get(0).sendUserID==sessionScope.get('userID')}">
-                                            <input type="hidden" id="receiveUserID" name="receiveUserID" value="${item.get(0).receiveUserID}">
+                                            <input type="hidden" name="receiveUserID" value="${item.get(0).receiveUserID}">
                                         </c:if>
                                         <c:if test="${item.get(0).receiveUserID==sessionScope.get('userID')}">
                                             <input type="hidden" name="receiveUserID" value="${item.get(0).sendUserID}">
                                         </c:if>
                                         <input type="hidden" name="parentLeaveWordID" value="${item.get(0).leaveWordID}">
-                                        <textarea rows="1" cols="20" id="content" name="content" class="form-control"
+                                        <textarea rows="1" cols="20" name="content" class="form-control"
                                                   placeholder="输入你的回复内容"></textarea>
                                     </div>
                                     <div class="form-group pull-right">
-                                        <button class="rep-btn btn btn-primary" type="button">回复</button>
+                                        <button class="rep-btn btn btn-primary" type="submit">回复</button>
                                     </div>
                                 </form>
                             </div>
+                            </c:if>
+
                         </div>
 
                     </c:forEach>
+                    <!--留言表单-->
+                    <form action="#" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <textarea class="form-control" rows="6" id="dynamicText" name="dynamicText" placeholder="动态内容"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="center-block btn btn-primary">留言</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script>
-    if("${message}"){
-        layer.open({
-            title: '添加留言',
-            content: '${message}'
-        });
-    }
-    if("${error}"){
-        layer.open({
-            title: '添加留言',
-            content: '${error}'
-        });
-    }
-</script>
 
 </body>
 

@@ -1,6 +1,8 @@
 package com.controller;
 
 import com.bean.Dynamic;
+import com.bean.LeaveWord;
+import com.bean.Relation;
 import com.bean.User;
 import com.enums.Message;
 import com.enums.State;
@@ -64,7 +66,31 @@ public class UserController {
     public ModelAndView userInfo(int userID) {
         ModelAndView modelAndView = new ModelAndView("profile");
         User user = userService.getUserByID(userID);
+        Page<List<LeaveWord>> pages = leaveWordService.getPageLeaveWordsByUserID(userID,1,5);
         modelAndView.addObject("user", user);
+        modelAndView.addObject("pages", pages);
+        return modelAndView;
+    }
+
+    @RequestMapping("/hot")
+    public ModelAndView hot() {
+        ModelAndView modelAndView = new ModelAndView("hot");
+
+        return modelAndView;
+    }
+
+    @RequestMapping("/singlePage")
+    public ModelAndView singlePage(int userID,HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView("single-page");
+        User user = userService.getUserByID(userID);
+        List<User> friends = relationService.getFriendsByID((int)session.getAttribute("userID"));
+        Page<List<LeaveWord>> pages = leaveWordService.getPageLeaveWordsByUserID(userID,1,5);
+        if(pages.getPageDatas().size()>2){
+            pages.setPageDatas(pages.getPageDatas().subList(0,2));
+        }
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("friends", friends);
+        modelAndView.addObject("pages", pages);
         return modelAndView;
     }
 

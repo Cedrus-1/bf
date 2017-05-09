@@ -24,7 +24,7 @@
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/user/index">主页</a></li>
-                <li><a href="#">热点</a></li>
+                <li><a href="/user/hot">热点</a></li>
                 <li><a href="#">聊天</a></li>
             </ul>
             <form class="navbar-form navbar-left">

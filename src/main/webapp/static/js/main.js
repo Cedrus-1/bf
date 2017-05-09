@@ -70,14 +70,14 @@ $(function () {
             var $inputList = $Thisfooter.find('input');
             var $repText = $Thisfooter.find('textarea').val();
             $.post('/addLeaveWord', {
-                leaveWordID: $inputList.eq(1).val(), //回复的留言的uid
-                sendUserID: $inputList.eq(2).val(),
-                receiveUserID: $inputList.eq(3).val(),
+                leaveWordID: $inputList.eq(2).val(), //回复的留言的uid
+                sendUserID: $inputList.eq(0).val(),
+                receiveUserID: $inputList.eq(1).val(),
                 content: $repText //回复内容
             }, function (data) {
                 var jsonData = $.parseJSON(data);
                 if (jsonData) {
-                    // 不处理，你直接刷新
+
                 } else {
                     layer.open({
                         title: '删除留言',

@@ -59,7 +59,7 @@
                         <div class="row">
                             <!--start平板以上屏幕大小显示-->
                             <div class="hidden-xs col-md-3 col-md-offset-2">
-                                <a href="/user/profile?userID=${item.userID}" class="btn btn-default">查看主页</a>
+                                <a href="/user/singlePage?userID=${item.userID}" class="btn btn-default">查看主页</a>
                             </div>
                             <!--如果已经是好友就不要显示下面这个div-->
                             <div class="hidden-xs col-md-3 col-md-offset-2">
@@ -70,7 +70,7 @@
 
                             <!--start手机显示-->
                             <div class="visible-xs">
-                                <a href="/user/profile?userID=${item.userID}" class="btn-block btn btn-default">查看主页</a>
+                                <a href="/user/singlePage?userID=${item.userID}" class="btn-block btn btn-default">查看主页</a>
                             </div>
                             <!--如果已经是好友就不要显示下面这个div-->
                             <div class="visible-xs">
