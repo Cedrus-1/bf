@@ -4,7 +4,10 @@ $(function () {
         $('[data-toggle="tooltip"]').tooltip({
             container: 'body'
         });
-    }
+        switchRepitem()
+        addFriend();
+        repLeave()
+    };
     // 添加好友
     function addFriend() {
         var $addFriendBtn = $('.addFriend');
@@ -24,12 +27,18 @@ $(function () {
                 }
             })
         });
-    }
+    };
     // 回复
     function repLeave() {
-        
-    }
+
+    };
+    // 留言板回复内容切换显示
+    function switchRepitem() {
+        var $arrow = $('.arrow');
+        $arrow.click(function () {
+            var $afterRepItem = $(this).nextAll();
+            $afterRepItem.slideToggle("slow");
+        });
+    };
     init();
-    addFriend();
-    repLeave()
 })

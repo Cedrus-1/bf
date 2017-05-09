@@ -155,4 +155,30 @@
     position: relative;
     border-top: 1px solid #eb6864;
     margin-left: 60px;
+    padding: 20px 10px;
+}
+.rep-item{
+    border-bottom: 1px dashed #ccc;
+    margin-bottom: 20px;
+    display: none;
+}
+.rep-item img{
+    width: 26px;
+    height: 26px;
+}
+.rep-item>span{
+    height: 26px;
+    line-height: 26px;
+    color: #ccc;
+    margin:10px 20px 0;
+}
+.rep-item>div{
+    text-align: center;
+}
+.rep-item-content{
+    font-size: 12px;
+    margin-left: 150px;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
