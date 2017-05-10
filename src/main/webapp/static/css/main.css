@@ -134,6 +134,7 @@
 }
 
 .arrow {
+    cursor: pointer;
     position: absolute;
     top: -16px;
     left: 50%;
@@ -155,14 +156,14 @@
 .rep-list {
     position: relative;
     border-top: 1px solid #eb6864;
-    margin-left: 60px;
+    /*margin-left: 60px;*/
     padding: 20px 10px;
 }
 
 .rep-item {
     border-bottom: 1px dashed #ccc;
     margin-bottom: 20px;
-    display: none;
+    /*display: none;*/
 }
 
 .rep-item img {
@@ -303,7 +304,6 @@
     color: #fff;
     border-radius: 5px;
     padding: 10px 5px;
-    background: #eb6864;
     word-wrap: break-word;
     width: 600px;
 }
@@ -331,7 +331,7 @@
     height: 0;
     font-size: 0;
     border: solid 8px;
-    border-color: #FFF #FFF #FFF #eb6864;
+    border-color: #FFF #FFF #FFF #2196f3;
 }
 
 .chat-item-other .avatar {
@@ -339,6 +339,7 @@
 }
 
 .chat-item-other .content {
+    background: #eb6864;
     float: left;
     margin-left: 20px;
 }
@@ -348,6 +349,22 @@
 }
 
 .chat-item-me .content {
+    background: #2196f3;
     float: right;
     margin-right: 20px;
+}
+
+.like-btn {
+    cursor: pointer;
+}
+
+.like-btn:hover {
+    color: pink;
+    transform: scale(1.5)
+}
+
+.dynamicItem .rep-item-from img {
+    width: 60px;
+    height: 60px;
+    margin-left: 20px;
 }
