@@ -5,10 +5,14 @@ $(function () {
             container: 'body'
         });
         addFriend();
-        repLeave()
-        deleteLeaveMsg()
-        switchRepitem()
-        dynamicLike()
+        repLeave();
+        deleteLeaveMsg();
+        switchRepitem();
+        dynamicLike();
+        ignoreMsg('leave-ignore-btn', '/test/ignoreLeaveMsg', false); //忽略留言提醒
+        ignoreMsg('dynamic-ignore-btn', '/test/ignoreDynamicMsg', false); //忽略动态提醒
+        ignoreMsg('apply-ref-btn', '/test/refApply', false); //拒绝添加好友
+        ignoreMsg('apply-pass-btn', '/test/passApply', true); //拒绝添加好友        
     };
     // 添加好友
     function addFriend() {
@@ -99,15 +103,15 @@ $(function () {
     // 动态点赞
     function dynamicLike() {
         var $likeBtn = $('.like-btn');
-        $likeBtn.one('click', function () {
+        $likeBtn.click(function () {
             var $btnNum = $(this).next(),
                 dynamicUid = $(this).prev().val();
-            $.post('/test/dynamicLike', {
-                dynamicUid: dynamicUid //动态的id
+            $.post('/dynamicLike', {
+                dynamicUid: dynamicUid, //动态的id
             }, function (data) {
-                var jsonData = $.parseJSON(data);
-                if (jsonData) {
-                    $btnNum.text($btnNum.text() * 1 + 1);
+                /*var jsonData = $.parseJSON(data);*/
+                if (data >= 0) {
+                    $btnNum.text(data);
                 } else {
                     layer.open({
                         title: '点赞',
@@ -116,6 +120,42 @@ $(function () {
                 }
             })
         })
+    }
+    // 忽略消息提醒
+    /*
+        params:{
+            btnclass:进行忽略操作的按钮的class
+            url:进行忽略操作的url
+        }
+    */
+    function ignoreMsg(btnClass, url, isAdd) {
+        var $IgnoreBtn = $('.' + btnClass);
+        $IgnoreBtn.click(function () {
+            var $thisMsg = $(this).parents('li');
+            var $inputMsgId = $(this).prevAll('input');
+            var That = $(this);
+            $.post(url, {
+                msgId: $inputMsgId.val() //要忽略的那条留言消息提醒的ID，数据库直接删除这条消息 
+            }, function (data) {
+                if (data) {
+                    if (isAdd) {
+                        That.text('已通过').addClass('disabled').off('click');
+                        That.next().remove();
+                        layer.open({
+                            title: '消息提示',
+                            content: '添加好友成功'
+                        });
+                    } else {
+                        $thisMsg.remove(); //忽略成功，页面直接执行dom操作删除这条消息，不用刷新
+                    }
+                } else {
+                    layer.open({
+                        title: '消息提示',
+                        content: '忽略失败，请稍后重试'
+                    });
+                }
+            });
+        });
     }
     init();
 })

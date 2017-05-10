@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>主页</title>
+    <link rel="stylesheet" href="../../static/css/paper-bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/css/layer.css">
+    <link rel="stylesheet" href="../../static/css/main.css">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                 </button>
+                <a class="navbar-brand" href="#">BF</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">主页</a></li>
+                    <li><a href="#">热点</a></li>
+                    <li><a href="#">聊天</a></li>
+                </ul>
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="找啊找啊找朋友">
+                    </div>
+                    <button type="submit" class="btn btn-default">搜索</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right aaa">
+                    <li><img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2883000726,4261883977&fm=23&gp=0.jpg"
+                            class="avatar-me img-responsive img-rounded" alt="Responsive image"></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tom <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">个人中心</a></li>
+                            <li><a href="#">消息</a></li>
+                            <li><a href="#">设置</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">注销</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <div class="container">
+        <div class="col-md-6 col-md-offset-3">
+            <h3 class="text-center">消息盒子</h3>
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                留言提醒
+                             </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <ul class="list-group">
+                                <li class="list-group-item clearfix">
+                                    <div class="clearfix">
+                                        <div class="info">
+                                            <img class="img-responsive img-rounded" src="../../static/img/large.gif" alt="...">
+                                            <a href="#" class="from">tom</a>
+                                        </div>
+                                        <p class="text">这是一篇父亲和孩子都应该去读一读的科幻小说：对父亲来说，你费劲心思所想要塞给孩子的东西，真的适合他吗？对孩子来说，有时候父亲那看似荒诞的行为背后，也许是一份想要弥补却不得要领的父爱。</p>
+                                    </div>
+                                    <div class="pull-right">
+                                        <input type="hidden" name="leave-msg-id" value="消息ID">
+                                        <a href="#" class="btn btn-sm btn-success">查看</a>
+                                        <button class="leave-ignore-btn btn btn-sm btn-default">忽略</button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
+                                aria-controls="collapseTwo">
+                                动态评论
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            <ul class="list-group">
+                                <li class="list-group-item clearfix">
+                                    <div class="clearfix">
+                                        <div class="info">
+                                            <img class="img-responsive img-rounded" src="../../static/img/large.gif" alt="...">
+                                            <a href="#" class="from">tom</a>
+                                        </div>
+                                        <p class="text">这是一篇父亲和孩子都应该去读一读的科幻小说：对父亲来说，你费劲心思所想要塞给孩子的东西，真的适合他吗？对孩子来说，有时候父亲那看似荒诞的行为背后，也许是一份想要弥补却不得要领的父爱。</p>
+                                    </div>
+                                    <div class="pull-right">
+                                        <input type="hidden" name="dynamic-msg-id" value="消息ID">
+                                        <a href="#" class="btn btn-sm btn-success">查看</a>
+                                        <button class="dynamic-ignore-btn btn btn-sm btn-default">忽略</button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingThree">
+                        <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false"
+                                aria-controls="collapseThree">
+                                好友申请    
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                        <div class="panel-body">
+                            <ul class="list-group">
+                                <li class="list-group-item clearfix">
+                                    <div class="apply-msg-info pull-left">
+                                        <div class="info">
+                                            <img class="img-responsive img-rounded" src="../../static/img/large.gif" alt="...">
+                                            <a href="#" class="from">tom</a>
+                                            <span>申请添加你为好友</span>
+                                        </div>
+                                    </div>
+                                    <div class="pull-right">
+                                        <input type="hidden" name="apply-msg-id" value="消息ID">
+                                        <button class="apply-pass-btn btn btn-sm btn-success">同意</button>
+                                        <button class="apply-ref-btn btn btn-sm btn-danger">拒绝</button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../static/js/jquery-2.1.4.min.js"></script>
+    <script src="../../static/js/bootstrap.min.js"></script>
+    <script src="../../static/js/layer.js"></script>
+    <script src="../../static/js/main.js"></script>
+</body>
+
+</html>
