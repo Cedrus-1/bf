@@ -8,6 +8,7 @@ $(function () {
         repLeave()
         deleteLeaveMsg()
         switchRepitem()
+        dynamicLike()
     };
     // 添加好友
     function addFriend() {
@@ -77,7 +78,7 @@ $(function () {
             }, function (data) {
                 var jsonData = $.parseJSON(data);
                 if (jsonData) {
-
+                    location.reload();
                 } else {
                     layer.open({
                         title: '删除留言',
@@ -95,5 +96,26 @@ $(function () {
             $afterRepItem.slideToggle("slow");
         });
     };
+    // 动态点赞
+    function dynamicLike() {
+        var $likeBtn = $('.like-btn');
+        $likeBtn.one('click', function () {
+            var $btnNum = $(this).next(),
+                dynamicUid = $(this).prev().val();
+            $.post('/test/dynamicLike', {
+                dynamicUid: dynamicUid //动态的id
+            }, function (data) {
+                var jsonData = $.parseJSON(data);
+                if (jsonData) {
+                    $btnNum.text($btnNum.text() * 1 + 1);
+                } else {
+                    layer.open({
+                        title: '点赞',
+                        content: '你已经点过赞了哦'
+                    });
+                }
+            })
+        })
+    }
     init();
 })

@@ -88,21 +88,38 @@
                         <div class="dynamicItem-info pull-left">
                             <span class="glyphicon glyphicon-time"></span><span>2017-02-02</span>
                         </div>
-                    </div>
-                </div>
-                <div class="dynamicItem">
-                    <div class="dynamicBody">
-                        <img class="dynamicImg img-responsive img-rounded" src="../../static/img/large.gif" alt="imgPath">
-                        <div class="dynamicBodyContent">波太带岳母大人今天在青岛休假，今天早上在餐厅吃饭时一位自称龙泉寺（没错就是北京那个）的清华物理系出身的高僧要给她们指点迷津。波太大喜，赶紧请教了我以前给她刨的大坑“玻色子跟中微子的关系”，只见大师目光一闪，便如概率波一样闪现消失了。[捂脸]</div>
-                    </div>
-                    <div class="dynamicFooter clearfix">
                         <div class="dynamicItem-info pull-left">
-                            <span class="glyphicon glyphicon-user"></span><a href="#">tom</a>
-                        </div>
-                        <div class="dynamicItem-info pull-left">
-                            <span class="glyphicon glyphicon-time"></span><span>2017-02-02</span>
+                            <input type="hidden" name="uid" value="动态的uid,测试值1">
+                            <span class="like-btn glyphicon glyphicon-thumbs-up"></span> <span class="like-num">200</span>
                         </div>
                     </div>
+                    <!--回复列表-->
+                    <div class="rep-list">
+                        <div class="arrow" data-toggle="tooltip" data-placement="bottom" title="点击切换显示回复"></div>
+                        <div class="rep-item clearfix">
+                            <div class="rep-item-from pull-left">
+                                <img class="img-responsive img-rounded" src="../../static/img/large.gif" alt="回复人头像">
+                                <span>Tom</span>
+                            </div>
+                            <p class="rep-item-content">
+                                春天还没有开始，风已微温，不再刺骨。因为工作，刚烫了发，颈窝里总是觉得痒。我伸手去拨开贴在皮肤上的头发，陡然地，风灌进来，又连忙把头发拨回去。我还是竖了领子，又裹了一道围巾。 春天还没有开始，风已微温，不再刺骨。因为工作，刚烫了发，颈窝里总是觉得痒。我伸手去拨开贴在皮肤上的头发，陡然地，风灌进来，又连忙把头发拨回去。我还是竖了领子，又裹了一道围巾。
+                                春天还没有开始，风已微温，不再刺骨。因为工作，刚烫了发，颈窝里总是觉得痒。我伸手去拨开贴在皮肤上的头发，陡然地，风灌进来，又连忙把头发拨回去。我还是竖了领子，又裹了一道围巾。 春天还没有开始，风已微温，不再刺骨。因为工作，刚烫了发，颈窝里总是觉得痒。我伸手去拨开贴在皮肤上的头发，陡然地，风灌进来，又连忙把头发拨回去。我还是竖了领子，又裹了一道围巾。
+                            </p>
+                        </div>
+                    </div>
+                    <!--回复输入框-->
+                    <form action="#" method="POST" class="rep-form clearfix">
+                        <div class="form-group">
+                            <!--留言的ID，隐藏域-->
+                            <input type="hidden" name="uid" value="这里是动态的uid，测试值1">
+                            <input type="hidden" name="sendUserID" value="这里是sendUserID">
+                            <input type="hidden" name="toUserID" value="这里是toUserID">
+                            <textarea rows="6" cols="20" name="rep-text" class="form-control" placeholder="输入你的评论内容"></textarea>
+                        </div>
+                        <div class="form-group pull-right">
+                            <button class="rep-btn btn btn-primary" type="button">评论</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
