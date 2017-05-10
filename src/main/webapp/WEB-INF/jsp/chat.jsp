@@ -1,65 +1,99 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Cedrus
-  Date: 2017/5/3
-  Time: 0:22
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <jsp:include page="include/common.jsp"/>
-    <title>Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>聊天</title>
+    <link rel="stylesheet" href="/static/css/paper-bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/layer.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <script src="/static/js/jquery-2.1.4.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/layer.js"></script>
+    <script src="/static/js/main.js"></script>
+
 </head>
+
 <body>
-<jsp:include page="include/header.jsp"/>
-<div style="height: 1000px">
-    <div class="admin-content">
-        <div class="" style="width: 80%;float:left;">
-            <!-- 聊天区 -->
-            <div class="am-scrollable-vertical" id="chat-view" style="height: 510px;">
-                <ul class="am-comments-list am-comments-list-flip" id="chat">
-                </ul>
-            </div>
-            <!-- 输入区 -->
-            <div class="am-form-group am-form">
-                <textarea class="" id="message" name="message" rows="5"  placeholder="这里输入你想发送的信息..."></textarea>
-            </div>
-            <!-- 接收者 -->
-            <div class="" style="float: left">
-                <p class="am-kai">发送给 : <span id="sendto" >全体成员</span><button class="am-btn am-btn-xs am-btn-danger" onclick="$('#sendto').text('全体成员')">复位</button></p>
-            </div>
-            <!-- 按钮区 -->
-            <div class="am-btn-group am-btn-group-xs" style="float:right;">
-                <button class="am-btn am-btn-default" type="button" onclick="getConnection()"><span class="am-icon-plug"></span> 连接</button>
-                <button class="am-btn am-btn-default" type="button" onclick="closeConnection()"><span class="am-icon-remove"></span> 断开</button>
-                <button class="am-btn am-btn-default" type="button" onclick="checkConnection()"><span class="am-icon-bug"></span> 检查</button>
-                <button class="am-btn am-btn-default" type="button" onclick="clearConsole()"><span class="am-icon-trash-o"></span> 清屏</button>
-                <button class="am-btn am-btn-default" type="button" onclick="sendMessage()"><span class="am-icon-commenting"></span> 发送</button>
+<jsp:include page="include/header.jsp"></jsp:include>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="chat-panel panel panel-primary">
+                <!-- Default panel contents -->
+                <div class="panel-heading">
+                    <h3>好友列表</h3>
+                </div>
+                <div class="panel-body">
+                    <!-- List group -->
+                    <ul class="list-group">
+                        <c:forEach var="item" items="${online}">
+                            <li class="list-group-item clearfix">
+                                <div class="chat-item-info">
+                                    <img class="chat-avatar img-responsive img-circle pull-left" src="${item.photo}" alt="回复人头像">
+                                    <span class="chat-nickname pull-left">${item.userName}</span>[在线]
+                                </div>
+                            </li>
+                        </c:forEach>
+                        <c:forEach var="item" items="${offline}">
+                            <li class="list-group-item clearfix">
+                                <div class="chat-item-info">
+                                    <img class="chat-avatar img-responsive img-circle pull-left" src="${item.photo}" alt="回复人头像">
+                                    <span class="chat-nickname pull-left">${item.userName}</span>[离线]
+                                </div>
+                            </li>
+                        </c:forEach>
+                       <%-- <li class="active-chat list-group-item clearfix">
+                            <div class="chat-item-info">
+                                <img class="chat-avatar img-responsive img-circle pull-left" src="../../static/img/large.gif" alt="回复人头像">
+                                <span class="chat-nickname pull-left">tom</span>
+                            </div>
+                        </li>--%>
+
+                    </ul>
+                </div>
             </div>
         </div>
-        <!-- 列表区 -->
-        <div class="am-panel am-panel-default" style=" width: 20%;">
-            <div class="am-panel-hd">
-                <h3 class="am-panel-title">在线列表 [<span id="onlinenum"></span>]</h3>
+        <div class="chat-box col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="chat-item chat-item-other clearfix">
+                        <div class="avatar">
+                            <img class="chat-avatar img-responsive img-circle" src="../../static/img/large.gif" alt="回复人头像">
+                        </div>
+                        <div class="content">
+                            <div class="arrow-right"></div>
+                            <div class="text">发现了一份名为《流动的盛宴》的清单，于是他们将手稿编订为与此书名匹配的一本书，后来的事大家都知道了，这本书成为了经典。最近还有一个新译本出来，主要卖点就是恢复了当时没有收录的部分。这个故事表明：编辑最初步也最核心的就是做编辑方案，其实就是做一个产品化的方案。</div>
+                        </div>
+                    </div>
+                    <div class="chat-item chat-item-me clearfix">
+                        <div class="avatar">
+                            <img class="chat-avatar img-responsive img-circle" src="../../static/img/large.gif" alt="回复人头像">
+                        </div>
+                        <div class="content">
+                            <div class="arrow-left"></div>
+                            <div class="text">发现了一份名为《流动的盛宴》的清单，于是他们将手稿编订为与此书名匹配的一本书，后来的事大家都知道了，这本书成为了经典。最近还有一个新译本出来，主要卖点就是恢复了当时没有收录的部分。这个故事表明：编辑最初步也最核心的就是做编辑方案，其实就是做一个产品化的方案。</div>
+                        </div>
+                    </div>
 
+                </div>
+                <div class="panel-footer">
+                    <div class="chat-text-input">
+                        <textarea rows="6" cols="" class="form-control" name="chatText" id="chatText" placeholder="按Ctrl+Enter发送"></textarea>
+                        <div class="form-group pull-right">
+                            <button class="rep-btn btn btn-primary" type="button" onclick="sendMessage()">回复</button>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-            <%--<ul class="am-list am-list-static am-list-striped" >
-                <c:forEach var="item" items="${friends}">
-                <li>
-                        ${item.userName}
-                            <button type="button" class="am-btn am-btn-xs am-btn-primary am-round" onclick="addChat('${item.userID}')" >
-                                <span class="am-icon-phone" ></span> 私聊
-                            </button>
-                </li>
-                </c:forEach>
-            </ul>--%>
-            <ul class="am-list am-list-static am-list-striped" id="list">
-            </ul>
         </div>
     </div>
-    <!-- content end -->
 
 </div>
 
@@ -101,6 +135,9 @@
     }
     initWebSocket();
 
+    /**
+     * 连接
+     */
     function getConnection(){
         if(ws == null){
             ws = new WebSocket(wsServer); //创建WebSocket对象
@@ -121,6 +158,9 @@
         }
     }
 
+    /**
+     * 关闭连接
+     */
     function closeConnection(){
         if(ws != null){
             ws.close();
@@ -132,6 +172,9 @@
         }
     }
 
+    /**
+     * 检查连接
+     */
     function checkConnection(){
         if(ws != null){
             layer.msg(ws.readyState == 0? "连接异常":"连接正常", { offset: 0});
@@ -140,12 +183,15 @@
         }
     }
 
+    /**
+     * 发送信息给后台
+     */
     function sendMessage(){
         if(ws == null){
             layer.msg("连接未开启!", { offset: 0, shift: 6 });
             return;
         }
-        var message = $("#message").val();
+        var message = $("#chatText").val();
         var to = $("#sendto").text() == "全体成员"? "": $("#sendto").text();
         if(message == null || message == ""){
             layer.msg("请不要惜字如金!", { offset: 0, shift: 6 });
@@ -154,7 +200,7 @@
         ws.send(JSON.stringify({
             message : {
                 content : message,
-                from : ${user.userID},
+                from : ${sessionScope.get("userID")},
                 to : to,      //接收人,如果没有则置空,如果有多个接收人则用,分隔
                 time : getDateFull()
             },
@@ -162,6 +208,17 @@
         }));
     }
 
+    /**
+     * 解析后台传来的消息
+     * "massage" : {
+     *              "from" : "xxx",
+     *              "to" : "xxx",
+     *              "content" : "xxx",
+     *              "time" : "xxxx.xx.xx"
+     *          },
+     * "type" : {notice|message},
+     * "list" : {[xx],[xx],[xx]}
+     */
     function analysisMessage(message){
         message = JSON.parse(message);
         if(message.type == "message"){      //会话消息
@@ -175,12 +232,18 @@
         }
     }
 
+    /**
+     * 展示提示信息
+     */
     function showNotice(notice){
         $("#chat").append("<div><p class=\"am-text-success\" style=\"text-align:center\"><span class=\"am-icon-bell\"></span> "+notice+"</p></div>");
         var chat = $("#chat-view");
         chat.scrollTop(chat[0].scrollHeight);   //让聊天区始终滚动到最下面
     }
 
+    /**
+     * 展示会话信息
+     */
     function showChat(message){
         var to = message.to == null || message.to == ""? "全体成员" : message.to;   //获取接收人
         var isSef = '${user.userID}' == message.from ? "am-comment-flip" : "";   //如果是自己则显示在右边,他人信息显示在左边
@@ -192,6 +255,9 @@
         chat.scrollTop(chat[0].scrollHeight);   //让聊天区始终滚动到最下面
     }
 
+    /**
+     * 展示在线列表
+     */
     function showOnline(list){
         $("#list").html("");    //清空在线列表
         $.each(list, function(index, item){     //添加私聊按钮
@@ -217,12 +283,13 @@
         $("#chat").html("");
     }
     function appendZero(s){return ("00"+ s).substr((s+"").length);}  //补0函数
-
     function getDateFull(){
         var date = new Date();
         var currentdate = date.getFullYear() + "-" + appendZero(date.getMonth() + 1) + "-" + appendZero(date.getDate()) + " " + appendZero(date.getHours()) + ":" + appendZero(date.getMinutes()) + ":" + appendZero(date.getSeconds());
         return currentdate;
     }
+
 </script>
 </body>
+
 </html>

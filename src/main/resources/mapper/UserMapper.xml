@@ -18,7 +18,7 @@
         WHERE 1=1
             <if test="userName!=null and userName!='' "> AND username like CONCAT('%',#{userName},'%') </if>
             <if test="email!=null and email!='' "> AND email like CONCAT('%',#{email},'%') </if>
-            <if test="sex>0 "> AND sex=#{sex} </if>
+            <if test="sex>0 "> AND sex!=#{sex} </if>
             <if test="age>0 "> AND (age BETWEEN #{age}-2 AND #{age}+2 )</if>
             <if test="constellation!=null and constellation!='' "> AND constellation=#{constellation} </if>
             <if test="work!=null and work!='' "> AND work =#{work}</if>
@@ -29,9 +29,23 @@
         LIMIT 20
     </select>
 
+    <select id="queryUsers"  resultType="com.bean.User">
+        SELECT * FROM user
+        WHERE (age BETWEEN #{1} AND #{2} ) AND sex=#{user.sex}
+        <if test="user.userName!=null and user.userName!='' "> AND username like CONCAT('%',#{user.userName},'%') </if>
+        <if test="user.email!=null and user.email!='' "> AND email like CONCAT('%',#{user.email},'%') </if>
+        <if test="user.constellation!=null and user.constellation!='' "> AND constellation=#{user.constellation} </if>
+        <if test="user.work!=null and user.work!='' "> AND work like CONCAT('%',#{user.work},'%')</if>
+        <if test="user.hometown!=null and user.hometown!='' "> AND hometown like CONCAT('%',#{user.hometown},'%') </if>
+        <if test="user.district!=null and user.district!='' "> AND district like CONCAT('%',#{user.district},'%') </if>
+        <if test="user.school!=null and user.school!='' "> AND school like CONCAT('%',#{user.school},'%') </if>
+        ORDER BY RAND()
+        LIMIT 20
+    </select>
+
     <insert id="addUser" parameterType="com.bean.User" useGeneratedKeys="true" keyProperty="userID">
-		insert into user(userName, password, email) 
-			values(#{userName}, #{password},#{email});
+		insert into user(userName, password, email,photo)
+			values(#{userName}, #{password},#{email},#{photo});
 	</insert>
 
     <update id="updateUser" parameterType="com.bean.User">

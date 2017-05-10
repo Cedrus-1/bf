@@ -38,6 +38,9 @@ public class MyHandler extends TextWebSocketHandler {
         userMap = new HashMap<>();
     }
 
+    public static Map<Integer, WebSocketSession> getUserMap() {
+        return userMap;
+    }
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {

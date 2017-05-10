@@ -5,7 +5,10 @@ import java.util.List;
 import com.bean.Dynamic;
 
 public interface DynamicMapper {
-	
+
+	List<Dynamic> getAllPageDynamic(int start, int num);
+	int getAllDynamicCount();
+
 	List<Dynamic> getPageDynamicByUserID(int id, int start, int num);
 	int getDynamicCountByUserID(int id);
 	

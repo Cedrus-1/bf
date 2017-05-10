@@ -24,7 +24,7 @@ public class RelationController {
     @ResponseBody
     public int updateInfo(int userID, HttpSession session) {
         int ownID = (int) session.getAttribute("userID");
-        Message message = relationService.applyRelation(userID,ownID);
+        Message message = relationService.applyRelation(ownID,userID);
         if(message.getState()== State.SUCCESS){
             return 1;
         }

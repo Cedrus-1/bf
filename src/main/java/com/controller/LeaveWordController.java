@@ -23,7 +23,7 @@ public class LeaveWordController {
 
     @RequestMapping(value = "/addLeaveWord", method = RequestMethod.POST)
     @ResponseBody
-    public int addLeaveWord(int sendUserID, int receiveUserID, String content, int leaveWordID, RedirectAttributes attributes){
+    public int addLeaveWord(int sendUserID, int receiveUserID, String content, int leaveWordID){
         LeaveWord leaveWord = new LeaveWord();
         leaveWord.setLeaveWord(content);
         leaveWord.setSendUserID(sendUserID);
@@ -36,6 +36,22 @@ public class LeaveWordController {
         }else {
            return 0;
         }
+    }
+
+    @RequestMapping(value = "/leaveWord", method = RequestMethod.POST)
+    public String leaveWord(int sendUserID, int receiveUserID, String content,  RedirectAttributes attributes){
+        LeaveWord leaveWord = new LeaveWord();
+        leaveWord.setLeaveWord(content);
+        leaveWord.setSendUserID(sendUserID);
+        leaveWord.setReceiveUserID(receiveUserID);
+        leaveWord.setTime(new Date());
+        Message message = leaveWordService.addLeaveWord(leaveWord);
+        if(message.getState() == State.SUCCESS){
+            attributes.addFlashAttribute("message",message.getMessage());
+        }else {
+            attributes.addFlashAttribute("error",message.getMessage());
+        }
+        return "redirect:/user/singlePage?userID="+receiveUserID;
     }
 
     @RequestMapping(value = "/deleteLeaveWord", method = RequestMethod.POST)

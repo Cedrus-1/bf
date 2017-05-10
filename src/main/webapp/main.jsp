@@ -89,8 +89,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         }
     </script>
   <body>
-  	<iframe id="main" src="<%=basePath%>/web" scrolling="no" frameborder="0" width="100%"></iframe>
-  	
+  <form action="/tt">
+      <input type="submit" value="发送信息"/>
+  </form>
+  <br>
     <div id="console-container">
         <div id="console"></div>
     </div>

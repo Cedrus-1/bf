@@ -12,6 +12,7 @@ public class Dynamic {
 	private int commentNumber;
 	private String photo;
 	private List<Comment> comments;
+	private User dynamicUser;
 	
 	public int getDynamicID() {
 		return dynamicID;
@@ -64,5 +65,13 @@ public class Dynamic {
 
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
+	}
+
+	public User getDynamicUser() {
+		return dynamicUser;
+	}
+
+	public void setDynamicUser(User dynamicUser) {
+		this.dynamicUser = dynamicUser;
 	}
 }

@@ -19,6 +19,10 @@
     <link rel="stylesheet" href="/static/css/paper-bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/layer.css">
     <link rel="stylesheet" href="/static/css/main.css">
+    <script src="/static/js/jquery-2.1.4.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/layer.js"></script>
+    <script src="/static/js/main.js"></script>
 
 </head>
 
@@ -33,10 +37,10 @@
                 <div class="recom-friend-item">
                     <div class="recom-friend-item-body clearfix">
                         <div class="recom-friend-item-left pull-left">
-                            <img class="img-responsive img-rounded" src="/${item.photo}" alt="...">
+                            <img class="img-responsive img-rounded" src="${item.photo}" alt="...">
                         </div>
                         <div class="recom-friend-item-right pull-left">
-                            <a href="#"> <span class="recom-friend-item-nickname">${item.userName}</span></a>
+                            <a href="/user/singlePage?userID=${item.userID}"> <span class="recom-friend-item-nickname">${item.userName}</span></a>
                             <div class="recom-friend-item-detail">
                                 <span class="recom-friend-item-detail-sex">
                                     <c:if test="${item.sex==0}">
@@ -52,7 +56,6 @@
                                 <span class="recom-friend-item-detail-age">${item.age}岁</span>
                             </div>
                             <p class="recom-friend-item-signature">${item.personalizedSignature}</p>
-                           <%-- <p class="recom-friend-item-signature">心里有太多浓重的阴影，被生活混淆的烦躁不安。心里有太多浓重的阴影，被生活混淆的烦躁不安。心里有太多浓重的阴影，被生活混淆的烦躁不安。心里有太多浓重的阴影，被生活混淆的烦躁不安。心里有太多浓重的阴影，被生活混淆的烦躁不安。</p>--%>
                         </div>
                     </div>
                     <div class="recom-friend-item-footer">
@@ -86,10 +89,7 @@
         </div>
     </div>
 </div>
-<script src="/static/js/jquery-2.1.4.min.js"></script>
-<script src="/static/js/bootstrap.min.js"></script>
-<script src="/static/js/layer.js"></script>
-<script src="/static/js/main.js"></script>
+
 </body>
 
 </html>

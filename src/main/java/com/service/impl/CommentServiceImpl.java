@@ -31,12 +31,10 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Message addComment(Comment comment) {
         Message message = new Message();
-
-        int num = commentMapper.getCommentsByDynamicID(comment.getDynamicID()).size();
-        comment.setLevel(num+1);
-
         Dynamic dynamic = dynamicMapper.getDynamicByID(comment.getDynamicID());
+        comment.setLevel(dynamic.getCommentNumber()+1);
         dynamic.setCommentNumber(dynamic.getCommentNumber() + 1);
+        //发通知
         com.bean.Message message1 = new com.bean.Message();
         message1.setContent(comment.getComment());
         message1.setMessageTime(new Date());

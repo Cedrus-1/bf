@@ -5,6 +5,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.persistence.DynamicMapper">
 
+	<select id="getAllPageDynamic" resultType="com.bean.Dynamic">
+		SELECT *
+		From dynamic
+		ORDER by dynamicTime DESC LIMIT #{0},#{1}
+	</select>
+
+	<select id="getAllDynamicCount" resultType="Integer">
+		SELECT count(*) From dynamic
+	</select>
+
 	<select id="getPageDynamicByUserID" resultType="com.bean.Dynamic">
 		SELECT * From 
 			dynamic 
@@ -52,11 +62,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<update id="updateDynamicLikeNumber" parameterType="com.bean.Dynamic" >
-		update dynamic set likeNumber=#{likeNumber} where dynamicID = #{0}
+		update dynamic set likeNumber=#{likeNumber} where dynamicID = #{dynamicID}
 	</update>
 
 	<update id="updateDynamicCommentNumber" parameterType="com.bean.Dynamic" >
-		update dynamic set commentNumber=#{commentNumber} where dynamicID = #{0}
+		update dynamic set commentNumber=#{commentNumber} where dynamicID = #{dynamicID}
 	</update>
 	
 	<delete id="deleteDynamicByID" parameterType="Integer" >

@@ -49,6 +49,7 @@ public class LoginController {
         user.setUserName(username);
         user.setEmail(email);
         user.setPassword(password);
+        user.setPhoto("/static/img/default_head.jpg");
         Message msg = userService.addUser(user);
         if (msg.getState() == State.SUCCESS) {
             session.setAttribute("userID", user.getUserID());

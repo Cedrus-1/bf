@@ -12,6 +12,8 @@ public interface UserService {
 	User getUserByName(String username);
 
 	List<User> getRandomUsersByUser(User user,int userID);
+
+	List<User> queryUsers(User user,int userID);
 	
 	Message addUser(User user);
 	

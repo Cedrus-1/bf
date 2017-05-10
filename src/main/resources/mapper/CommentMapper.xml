@@ -12,12 +12,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <insert id="addComment" parameterType="com.bean.Comment" useGeneratedKeys="true" keyProperty="commentID">
-        INSERT INTO comment(dynamicID, commentUserID, commentToUserID, parentCommentID, level, comment, commentTime)
-        VALUES(#{dynamicID},#{commentUserID},#{commentToUserID},#{parentCommentID},#{level},#{comment},#{commentTime})
+        INSERT INTO comment(dynamicID, commentUserID, commentToUserID, level, comment, commentTime)
+        VALUES(#{dynamicID},#{commentUserID},#{commentToUserID},#{level},#{comment},#{commentTime})
     </insert>
 
     <delete id="deleteCommentByDynamicID"  parameterType="Integer" >
         DELETE FROM comment
-          WHERE dynamicID = #{0} OR parentCommentID=#{0}
+          WHERE dynamicID = #{0}
     </delete>
 </mapper>

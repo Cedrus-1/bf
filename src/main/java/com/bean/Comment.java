@@ -7,10 +7,11 @@ public class Comment {
     private int dynamicID;
     private int commentUserID;
     private int commentToUserID;
-    private int parentCommentID;
     private int level;
     private String comment;
     private Date commentTime;
+    private User commentUser;
+    private User commentToUser;
 
     public int getCommentID() {
         return commentID;
@@ -44,14 +45,6 @@ public class Comment {
         this.commentToUserID = commentToUserID;
     }
 
-    public int getParentCommentID() {
-        return parentCommentID;
-    }
-
-    public void setParentCommentID(int parentCommentID) {
-        this.parentCommentID = parentCommentID;
-    }
-
     public int getLevel() {
         return level;
     }
@@ -74,5 +67,21 @@ public class Comment {
 
     public void setCommentTime(Date commentTime) {
         this.commentTime = commentTime;
+    }
+
+    public User getCommentUser() {
+        return commentUser;
+    }
+
+    public void setCommentUser(User commentUser) {
+        this.commentUser = commentUser;
+    }
+
+    public User getCommentToUser() {
+        return commentToUser;
+    }
+
+    public void setCommentToUser(User commentToUser) {
+        this.commentToUser = commentToUser;
     }
 }

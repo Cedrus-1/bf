@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>主页</title>
+    <title>个人主页</title>
     <link rel="stylesheet" href="/static/css/paper-bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/layer.css">
     <link rel="stylesheet" href="/static/css/main.css">
@@ -27,7 +27,7 @@
             <div class="profile-info-header">
                 <img class="profile-avatar img-responsive img-circle" data-toggle="tooltip" data-placement="right"
                      title="${user.personalizedSignature}"
-                     src="/${user.photo}" alt="...">
+                     src="${user.photo}" alt="...">
             </div>
             <div class="panel panel-primary">
                 <div class="panel-heading">
@@ -94,7 +94,7 @@
                         <div class="leaveMsgItem">
                             <div class="leaveMsgItem-head clearfix">
                                 <div class="pull-left">
-                                    <span class="floor-num">${pages.pageDatas.size()-pages.pageDatas.indexOf(item)}楼:</span>
+                                    <span class="floor-num">${pages.totalRecords-(pages.pageIndex-1)*pages.pageSize-pages.pageDatas.indexOf(item)}楼:</span>
                                     <span class="leaveMsg-time">
                                     <fmt:formatDate type="both" dateStyle="medium" timeStyle="medium"
                                                     value="${item.get(0).time}"/>
@@ -104,7 +104,7 @@
                             <div class="leaveMsgItem-body clearfix">
                                 <div class="leaveMsgItem-left pull-left">
                                     <span class="leaveMsg-from">${item.get(0).sendUser.userName}</span>
-                                    <img class="img-responsive img-rounded" src="/${item.get(0).sendUser.photo}"
+                                    <img class="img-responsive img-rounded" src="${item.get(0).sendUser.photo}"
                                          alt="...">
                                 </div>
                                 <div class="leaveMsgItem-right pull-left">
@@ -120,13 +120,13 @@
                                         <div class="rep-item clearfix">
                                             <div class="rep-item-from pull-left">
                                                 <img class="img-responsive img-rounded"
-                                                     src="/${leaveWord.sendUser.photo}" alt="回复人头像">
+                                                     src="${leaveWord.sendUser.photo}" alt="回复人头像">
                                                 <span>${leaveWord.sendUser.userName}</span>
                                             </div>
                                             <span class="pull-left">回复</span>
                                             <div class="rep-item-to pull-left">
                                                 <img class="img-responsive img-rounded"
-                                                     src="/${leaveWord.receiveUser.photo}" alt="被回复人头像">
+                                                     src="${leaveWord.receiveUser.photo}" alt="被回复人头像">
                                                 <span>${leaveWord.receiveUser.userName}</span>
                                             </div>
                                             <p class="rep-item-content">${leaveWord.leaveWord}</p>
@@ -148,11 +148,11 @@
                                             <input type="hidden" name="receiveUserID" value="${item.get(0).sendUserID}">
                                         </c:if>
                                         <input type="hidden" name="parentLeaveWordID" value="${item.get(0).leaveWordID}">
-                                        <textarea rows="1" cols="20" name="content" class="form-control"
+                                        <textarea rows="3" cols="20" name="content" class="form-control"
                                                   placeholder="输入你的回复内容"></textarea>
                                     </div>
                                     <div class="form-group pull-right">
-                                        <button class="rep-btn btn btn-primary" type="submit">回复</button>
+                                        <button class="rep-btn btn btn-primary" type="button">回复</button>
                                     </div>
                                 </form>
                             </div>
@@ -162,11 +162,13 @@
 
                     </c:forEach>
                     <!--留言表单-->
-                    <form action="#" method="post" enctype="multipart/form-data">
+                    <form action="/leaveWord" method="post" enctype="multipart/form-data">
                         <div class="form-group">
-                            <textarea class="form-control" rows="6" id="dynamicText" name="dynamicText" placeholder="动态内容"></textarea>
+                            <input type="hidden" name="sendUserID" value="${sessionScope.get("userID")}">
+                            <input type="hidden" name="receiveUserID" value="${user.userID}">
+                            <textarea class="form-control" rows="5" id="dynamicText" name="content" placeholder="留言内容"></textarea>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group pull-right">
                             <button type="submit" class="center-block btn btn-primary">留言</button>
                         </div>
                     </form>

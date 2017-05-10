@@ -6,11 +6,13 @@ import com.enums.Message;
 import com.enums.State;
 import com.persistence.CommentMapper;
 import com.persistence.DynamicMapper;
+import com.persistence.UserMapper;
 import com.service.DynamicService;
 import com.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -19,6 +21,30 @@ public class DynamicServiceImpl implements DynamicService {
     private DynamicMapper dynamicMapper;
     @Autowired
     private CommentMapper commentMapper;
+    @Autowired
+    private UserMapper userMapper;
+
+    @Override
+    public Page<Dynamic> getPageDynamicByPage(int pageNum, int pageSize) {
+        pageNum = (pageNum > 0) ? pageNum : 1;
+        List<Dynamic> query = dynamicMapper.getAllPageDynamic( (pageNum - 1) * pageSize, pageSize);
+        for(Dynamic dynamic:query){
+            List<Comment> comments = commentMapper.getCommentsByDynamicID(dynamic.getDynamicID());
+            for(Comment comment:comments){
+                comment.setCommentUser(userMapper.getUserByID(comment.getCommentUserID()));
+                comment.setCommentToUser(userMapper.getUserByID(comment.getCommentToUserID()));
+            }
+            dynamic.setDynamicUser(userMapper.getUserByID(dynamic.getDynamicUserID()));
+            dynamic.setComments(comments);
+        }
+        int count = dynamicMapper.getAllDynamicCount();
+        Page<Dynamic> result = new Page<Dynamic>();
+        result.setPageIndex(pageNum);
+        result.setPageSize(pageSize);
+        result.setTotalRecords(count);
+        result.setPageDatas(query);
+        return result;
+    }
 
     @Override
     public Page<Dynamic> getPageDynamicByUserID(int id, int pageNum, int pageSize) {
@@ -26,7 +52,12 @@ public class DynamicServiceImpl implements DynamicService {
         List<Dynamic> query = dynamicMapper.getPageDynamicByUserID(id, (pageNum - 1) * pageSize, pageSize);
         for(Dynamic dynamic:query){
             List<Comment> comments = commentMapper.getCommentsByDynamicID(dynamic.getDynamicID());
+            for(Comment comment:comments){
+                comment.setCommentUser(userMapper.getUserByID(comment.getCommentUserID()));
+                comment.setCommentToUser(userMapper.getUserByID(comment.getCommentToUserID()));
+            }
             dynamic.setComments(comments);
+            dynamic.setDynamicUser(userMapper.getUserByID(dynamic.getDynamicUserID()));
         }
         int count = dynamicMapper.getDynamicCountByUserID(id);
         Page<Dynamic> result = new Page<Dynamic>();
@@ -48,6 +79,11 @@ public class DynamicServiceImpl implements DynamicService {
         result.setTotalRecords(count);
         result.setPageDatas(query);
         return result;
+    }
+
+    @Override
+    public Dynamic getDynamicByID(int id) {
+        return dynamicMapper.getDynamicByID(id);
     }
 
     @Override

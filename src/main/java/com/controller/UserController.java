@@ -10,6 +10,7 @@ import com.service.DynamicService;
 import com.service.LeaveWordService;
 import com.service.RelationService;
 import com.service.UserService;
+import com.sun.istack.internal.Nullable;
 import com.util.Page;
 import com.util.UploadUtil;
 import com.websocket.MyHandler;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.socket.WebSocketSession;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +29,12 @@ import javax.servlet.http.HttpSession;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -50,11 +57,7 @@ public class UserController {
         //推荐用户
         User query = new User();
         query.setAge(user.getAge());
-        if(user.getSex() ==0){
-            query.setSex(0);
-        }else {
-            query.setSex(3-user.getSex());
-        }
+        query.setSex(user.getSex());
         List<User> recommend = userService.getRandomUsersByUser(query,user.getUserID());
         modelAndView.addObject("user", user);
         modelAndView.addObject("recommend", recommend);
@@ -63,20 +66,94 @@ public class UserController {
 
     //个人主页
     @RequestMapping("/profile")
-    public ModelAndView userInfo(int userID) {
+    public ModelAndView userInfo( int pageNum , HttpSession session) {
         ModelAndView modelAndView = new ModelAndView("profile");
+        int userID = (int)session.getAttribute("userID");
         User user = userService.getUserByID(userID);
-        Page<List<LeaveWord>> pages = leaveWordService.getPageLeaveWordsByUserID(userID,1,5);
+        Page<List<LeaveWord>> pages = leaveWordService.getPageLeaveWordsByUserID(userID,pageNum,5);
         modelAndView.addObject("user", user);
         modelAndView.addObject("pages", pages);
         return modelAndView;
     }
 
     @RequestMapping("/hot")
-    public ModelAndView hot() {
+    public ModelAndView hot(int pageNum) {
         ModelAndView modelAndView = new ModelAndView("hot");
-
+        Page<Dynamic> pages = dynamicService.getPageDynamicByPage(pageNum,5);
+        modelAndView.addObject("pages",pages);
         return modelAndView;
+    }
+
+    @RequestMapping("/setting")
+    public ModelAndView setting(HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView("setting");
+        User user = userService.getUserByID((int)session.getAttribute("userID"));
+        modelAndView.addObject("user",user);
+        return modelAndView;
+    }
+
+
+    @RequestMapping(value = "/updateInfo", method = RequestMethod.POST)
+    public String updateInfo(HttpServletRequest request,HttpSession session, RedirectAttributes attributes) {
+        User user = userService.getUserByID((int)session.getAttribute("userID"));
+        String work = request.getParameter("work");
+        int sex = Integer.parseInt(request.getParameter("sex"));
+        String hometown = request.getParameter("hometown");
+        String district = request.getParameter("district");
+        String school = request.getParameter("school");
+        String phone = request.getParameter("phone");
+        String perSig = request.getParameter("perSig");
+        String birthday = request.getParameter("birthday");
+
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date=sdf.parse(birthday);
+            user.setBirth(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        user.setSex(sex);
+        user.setWork(work);
+        user.setHometown(hometown);
+        user.setDistrict(district);
+        user.setSchool(school);
+        user.setPhone(phone);
+        user.setPersonalizedSignature(perSig);
+        String fileUrl = UploadUtil.upload(request, "upload", String.valueOf(user.getUserID()));
+        if (fileUrl != "") {
+            user.setPhoto(fileUrl);
+            session.setAttribute("photo",fileUrl);
+        }
+
+        Message message = userService.updateUser(user);
+        if (message.getState() == State.SUCCESS) {
+            attributes.addFlashAttribute("message", "资料更新成功!");
+        } else {
+            attributes.addFlashAttribute("error", "资料更新失败!");
+        }
+        return "redirect:/user/setting";
+    }
+
+    @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
+    public String updatePassword(String oldPassword, String newPassword,RedirectAttributes attributes,HttpSession session) {
+        User user = userService.getUserByID((int)session.getAttribute("userID"));
+        if(!user.getPassword().equals(oldPassword)){
+            attributes.addFlashAttribute("error", "原密码错误!");
+            return "redirect:/user/setting";
+        }else {
+            user.setPassword(newPassword);
+            Message message = userService.updateUser(user);
+            if (message.getState() == State.SUCCESS) {
+                attributes.addFlashAttribute("message", "密码修改成功!");
+                session.removeAttribute("userID");
+                session.removeAttribute("userName");
+                session.removeAttribute("photo");
+                return "redirect:/login";
+            } else {
+                attributes.addFlashAttribute("error", "资料更新失败!");
+                return "redirect:/user/setting";
+            }
+        }
     }
 
     @RequestMapping("/singlePage")
@@ -94,14 +171,63 @@ public class UserController {
         return modelAndView;
     }
 
+    @RequestMapping("/findFriend")
+    public ModelAndView findFriend(HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView("find-friend");
+        User user = userService.getUserByID((int) session.getAttribute("userID"));
+        //推荐用户
+        User query = new User();
+        query.setAge(user.getAge());
+        query.setSex(user.getSex());
+        List<User> recommend = userService.getRandomUsersByUser(query,user.getUserID());
+        modelAndView.addObject("user", query);
+        modelAndView.addObject("recommend", recommend);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/queryFriend",method = RequestMethod.POST)
+    public ModelAndView queryFriend(int sex, int age, String work, String hometown, String district, String school, HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView("find-friend");
+        int userID = (int)session.getAttribute("userID");
+        User query = new User();
+        query.setSex(sex);
+        query.setAge(age);
+        query.setWork(work);
+        query.setHometown(hometown);
+        query.setDistrict(district);
+        query.setSchool(school);
+        List<User> recommend = userService.queryUsers(query,userID);
+        modelAndView.addObject("recommend",recommend);
+        modelAndView.addObject("user",query);
+        return modelAndView;
+    }
+
+    @RequestMapping("/chat")
+    public ModelAndView chat(HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView("chat");
+        int userID = (int)session.getAttribute("userID");
+        List<User> friends = relationService.getFriendsByID(userID);
+        if(friends==null||friends.size()==0){
+            return modelAndView;
+        }
+        List<User> online = new ArrayList<>();
+        Map<Integer,WebSocketSession> userMap = MyHandler.getUserMap();
+        for(Integer integer:userMap.keySet()){
+            online.add(userService.getUserByID(integer));
+        }
+        friends.removeAll(online);
+        modelAndView.addObject("offline",friends);
+        modelAndView.addObject("online",online);
+        return modelAndView;
+    }
 
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public String upload(HttpServletRequest request, RedirectAttributes attributes, HttpSession session) {
         try {
             int userID = (int) session.getAttribute("userID");
-            String fileUrl = UploadUtil.upload(request, "upload", session.getAttribute("userID").toString());
             User user = userService.getUserByID(userID);
+            String fileUrl = UploadUtil.upload(request, "upload", String.valueOf(userID));
             user.setPhoto(fileUrl);
             Message message = userService.updateUser(user);
             if (message.getState() == State.SUCCESS) {

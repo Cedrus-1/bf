@@ -11,7 +11,7 @@ import java.util.Iterator;
 
 public class UploadUtil {
 
-    public static String upload(HttpServletRequest request, String folder, String userid){
+    public static String upload(HttpServletRequest request, String folder, String filename){
         String file_url = "";
         //创建一个通用的多部分解析器
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
@@ -32,16 +32,16 @@ public class UploadUtil {
                     if(myFileName.trim() !=""){
                         System.out.println(myFileName);
                         //重命名上传后的文件名
-                        String fileName =  userid + "." + prefix;
-                        //定义上传路径,格式为 upload/userID/userID.jpg
-                        String path = request.getServletContext().getRealPath("/") + folder + "/" + userid;
+                        String fileName = System.currentTimeMillis() +"_"+ myFileName;
+                        //定义上传路径,格式为 upload/username/时间戳+原文件名
+                        String path = request.getServletContext().getRealPath("/") + folder + "/" + filename;
                         File localFile = new File(path, fileName);
                         if(!localFile.exists()){
                             localFile.mkdirs();
                         }
                         try {
                             file.transferTo(localFile);
-                            file_url = folder + "/" + userid + "/" + fileName;
+                            file_url = "/"+folder + "/" + filename + "/" + fileName;
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

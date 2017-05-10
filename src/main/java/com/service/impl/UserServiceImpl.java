@@ -48,6 +48,49 @@ public class UserServiceImpl implements UserService {
 				for(User user2 : users){
 					if(user2.getUserID() == relation.getAgreeID()){
 						result.remove(user2);
+					}if(user2.getUserID() == userID){
+						result.remove(user2);
+					}
+				}
+			}
+		}
+		return result.size()>6?result.subList(0,6):result;
+	}
+
+	@Override
+	public List<User> queryUsers(User user, int userID) {
+		//得到该用户的好友关系,包括已经申请和已经是好友的关系
+		List<Relation> relations = relationMapper.getAllRelationsByID(userID);
+		//根据条件随机推荐一些用户，其中可能包含已经是好友的用户
+		List<User> users ;
+		if(user.getAge()<16){
+			users = userMapper.queryUsers(user,0,16);
+		}else if(user.getAge()>28){
+			users = userMapper.queryUsers(user,28,100);
+		}else {
+			users = userMapper.queryUsers(user,user.getAge()-2,user.getAge()+2);
+		}
+
+		List<User> result = new ArrayList<>();
+		result.addAll(users);
+		//遍历删除是好友的用户
+		for(Relation relation : relations){
+			if(relation.getAgreeID()==userID){
+				for(User user1 : users){
+					if(user1.getUserID() == userID){
+						result.remove(user1);
+					}
+					if( relation.getApplyID() == user1.getUserID()){
+						result.remove(user1);
+					}
+				}
+			}else if(relation.getApplyID()==userID){
+				for(User user1 : users){
+					if(user1.getUserID() == userID){
+						result.remove(user1);
+					}
+					if(user1.getUserID() == relation.getAgreeID()){
+						result.remove(user1);
 					}
 				}
 			}
