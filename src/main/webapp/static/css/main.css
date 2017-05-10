@@ -368,3 +368,27 @@
     height: 60px;
     margin-left: 20px;
 }
+
+.info {
+    float: left;
+}
+
+.text {
+    font-size: 14px;
+    width: 26em;
+    margin-left: 10px;
+    float: left;
+}
+
+.info .from {
+    font-size: 16px;
+    margin-left: 10px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.info img {
+    float: left;
+    width: 40px;
+    height: 40px;
+}
