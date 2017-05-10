@@ -14,7 +14,7 @@ $(function () {
         var $addFriendBtn = $('.addFriend');
         $addFriendBtn.click(function (e) {
             e.preventDefault();
-            var $uid = $addFriendBtn.prevAll('input').val();
+            var $uid = $(this).prevAll('input').val();
             alert($uid);
             var $that = $(this);
             $.post('/addFriend', {
