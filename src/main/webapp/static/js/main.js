@@ -9,12 +9,13 @@ $(function () {
         deleteLeaveMsg();
         switchRepitem();
         dynamicLike();
-        ignoreMsg('leave-ignore-btn', '/test/ignoreLeaveMsg', false); //忽略留言提醒
-        ignoreMsg('dynamic-ignore-btn', '/test/ignoreDynamicMsg', false); //忽略动态提醒
-        ignoreMsg('apply-ref-btn', '/test/refApply', false); //拒绝添加好友
-        ignoreMsg('apply-pass-btn', '/test/passApply', true); //拒绝添加好友  
+        ignoreMsg('leave-ignore-btn', '/readMessage', false); //忽略留言提醒
+        ignoreMsg('dynamic-ignore-btn', '/readMessage', false); //忽略动态提醒
+        ignoreMsg('apply-ref-btn', '/refuseApply', false); //拒绝添加好友
+        ignoreMsg('apply-pass-btn', '/agreeApply', true); //通过添加好友
         chat();
     };
+
     // 添加好友
     function addFriend() {
         var $addFriendBtn = $('.addFriend');
@@ -43,6 +44,7 @@ $(function () {
             })
         });
     };
+
     // 删除留言
     function deleteLeaveMsg() {
         var $deleteLeaveMsgBtn = $('.deleteLeaveMsg-btn');
@@ -68,6 +70,7 @@ $(function () {
             });
         });
     };
+
     // 回复留言
     function repLeave() {
         var $repLeaveBtn = $('.leaveMsgItem-footer .rep-btn');
@@ -93,6 +96,7 @@ $(function () {
             });
         });
     };
+
     // 留言板回复内容切换显示
     function switchRepitem() {
         var $arrow = $('.arrow');
@@ -101,6 +105,7 @@ $(function () {
             $afterRepItem.slideToggle("slow");
         });
     };
+
     // 动态点赞
     function dynamicLike() {
         var $likeBtn = $('.like-btn');
@@ -122,6 +127,7 @@ $(function () {
             })
         })
     }
+
     // 忽略消息提醒
     /*
         params:{
@@ -136,7 +142,7 @@ $(function () {
             var $inputMsgId = $(this).prevAll('input');
             var That = $(this);
             $.post(url, {
-                msgId: $inputMsgId.val() //要忽略的那条留言消息提醒的ID，数据库直接删除这条消息 
+                messageID: $inputMsgId.val() //要忽略的那条留言消息提醒的ID，数据库直接删除这条消息 
             }, function (data) {
                 if (data) {
                     if (isAdd) {
@@ -158,11 +164,29 @@ $(function () {
             });
         });
     }
+
+    // 渲染聊天记录
+    function renderChatHistory(data, myAvatarUrl, otherAvatarUrl) {
+        var $chatBoxCentent = $('.chat-box .panel-body');
+        if (data.length) { //如果有聊天数据
+            for (i in data) {
+                if (data[i].me) { //如果是我发送给别人的消息
+                    var html = '<div class="chat-item chat-item-me clearfix"><div class="avatar"><img class="chat-avatar img-responsive img-circle" src="' + myAvatarUrl + '" alt="回复人头像"></div><div class="content"><div class="arrow-left"></div><div class="chat-text">' + data[i].chatText + '</div></div></div>'
+                } else { //如果是别人发送给我的消息
+                    var html = '<div class="chat-item chat-item-other clearfix"><div class="avatar"><img class="chat-avatar img-responsive img-circle" src="' + otherAvatarUrl + '" alt="回复人头像"></div><div class="content"><div class="arrow-right"></div><div class="chat-text">' + data[i].chatText + '</div></div></div>'
+                }
+                $chatBoxCentent.append($(html));
+                var scrollHeight = $chatBoxCentent.get(0).scrollHeight;
+                $chatBoxCentent.scrollTop(scrollHeight);
+            }
+        }
+
+    }
+
     // 切换聊天对象
-    function switchChatObj() {
+    function switchChatObj(myAvatarUrl) {
         var $chatListLi = $('.contact-item');
         var $chatBox = $('.chat-box');
-        var myAvatarUrl = $('#myAvatar').attr('src'); //记录自己的头像url
         $chatListLi.click(function () { //点击一个项目，记录它的uid，移除原来的avtive，添加active到点击的这个li上面
             if ($chatBox.css('display') == 'none') {
                 $chatBox.css('display', 'block');
@@ -184,26 +208,65 @@ $(function () {
             }
         })
     }
-    // 渲染聊天记录
-    function renderChatHistory(data, myAvatarUrl, otherAvatarUrl) {
-        var $chatBoxCentent = $('.chat-box .panel-body');
-        if (data.length) { //如果有聊天数据
-            for (i in data) {
-                if (data[i].isMe) { //如果是我发送给别人的消息
-                    var html = '<div class="chat-item chat-item-me clearfix"><div class="avatar"><img class="chat-avatar img-responsive img-circle" src="' + myAvatarUrl + '" alt="回复人头像"></div><div class="content"><div class="arrow-left"></div><div class="chat-text">' + data[i].chatText + '</div></div></div>'
-                } else { //如果是别人发送给我的消息
-                    var html = '<div class="chat-item chat-item-other clearfix"><div class="avatar"><img class="chat-avatar img-responsive img-circle" src="' + otherAvatarUrl + '" alt="回复人头像"></div><div class="content"><div class="arrow-right"></div><div class="chat-text">' + data[i].chatText + '</div></div></div>'
-                }
-                $chatBoxCentent.append($(html));
-            }
-        }
 
+    // 发送聊天信息
+    function sendMsg(websocket, myAvatarUrl) {
+        var $chatTextarea = $('.chat-text-input').find('textarea');
+        $chatTextarea.keydown(function (e) {
+            var toUserId = $('.active-chat').find('input').val(); //聊天对象的id
+            var sendChatText = $(this).val();
+            if (e.ctrlKey && e.keyCode == 13) {
+                var SendData = [{
+                    chatText: sendChatText,
+                    me: true
+                }];
+                renderChatHistory(SendData, myAvatarUrl);
+                $(this).val(''); //清空这个输入框
+            }
+            // 发送socket消息
+            if (websocket != null) {
+                websocket.send(message);
+            } else {
+                alert('未与服务器链接.');
+            }
+        })
+    }
+
+    //接收聊天消息
+    function receiveMsg(data) {
+        var data = {
+            from: "这个人的ID2",
+            to: "xxx",
+            content: "xxx",
+        };
+        var toUserId = $('.active-chat').find('input').val(); //聊天对象的id
+        if (data.from == toUserId) { //如果收到的消息是当前聊天对象的就直接在聊天窗口中渲染
+            renderChatHistory(data, myAvatarUrl, otherAvatarUrl)
+        } else { //否则进行提醒
+            $('#' + data.from).parents('.chat-item-info').append('<span class="chat-tips label label-info">新消息</span>');
+        }
     }
 
     function chat() {
-        switchChatObj(); //聊天对象选择
-        // SendMsg();
-        // ReceiveMsg();
+        var websocket;
+        var myAvatarUrl = $('#myAvatar').attr('src'); //记录自己的头像url
+        switchChatObj(myAvatarUrl); //聊天对象选择
+        if ('WebSocket' in window) {
+            websocket = new WebSocket("ws://" + location.host + "/websocket");
+        } else if ('MozWebSocket' in window) {
+            websocket = new MozWebSocket("ws://websocket");
+        } else {
+            websocket = new SockJS("http://" + location.host + "/sockjs/websocket");
+        }
+        websocket.onopen = function (evnt) {
+            alert('初始化');
+        };
+        websocket.onmessage = function (evnt) {
+            receiveMsg(evnt.data);
+        };
+        websocket.onerror = function (evnt) {};
+        websocket.onclose = function (evnt) {}
+        sendMsg(websocket, myAvatarUrl);
     }
     init();
 })

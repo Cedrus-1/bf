@@ -285,6 +285,13 @@
     font-size: 12px;
 }
 
+.chat-tips {
+    position: absolute;
+    top: 5px;
+    right: -15px;
+    font-size: 12px;
+}
+
 .chat-box {
     display: none;
     margin-left: -28px;
