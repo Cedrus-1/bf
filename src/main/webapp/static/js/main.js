@@ -199,13 +199,14 @@ $(function () {
                     // 将已有的聊天记录删除
                     $('.chat-box .panel-body').empty();
                     // 渲染聊天记录
-                    $.post('/test/switchChat', {
+                    $.post('/getChatRecord', {
                         userID: toUserId
                     }, function (data) {
                         var jsonData = $.parseJSON(data);
                         renderChatHistory(jsonData);
                     });
                     $chatListLi.removeClass('active-chat');
+                    $(this).find('.chat-tips').remove(); //移除新消息提醒，如果有的话，没有不会成功执行
                     $(this).addClass('active-chat');
                 }
             })
