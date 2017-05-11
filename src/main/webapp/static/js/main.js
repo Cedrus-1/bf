@@ -12,7 +12,8 @@ $(function () {
         ignoreMsg('leave-ignore-btn', '/test/ignoreLeaveMsg', false); //忽略留言提醒
         ignoreMsg('dynamic-ignore-btn', '/test/ignoreDynamicMsg', false); //忽略动态提醒
         ignoreMsg('apply-ref-btn', '/test/refApply', false); //拒绝添加好友
-        ignoreMsg('apply-pass-btn', '/test/passApply', true); //拒绝添加好友        
+        ignoreMsg('apply-pass-btn', '/test/passApply', true); //拒绝添加好友  
+        chat();
     };
     // 添加好友
     function addFriend() {
@@ -156,6 +157,53 @@ $(function () {
                 }
             });
         });
+    }
+    // 切换聊天对象
+    function switchChatObj() {
+        var $chatListLi = $('.contact-item');
+        var $chatBox = $('.chat-box');
+        var myAvatarUrl = $('#myAvatar').attr('src'); //记录自己的头像url
+        $chatListLi.click(function () { //点击一个项目，记录它的uid，移除原来的avtive，添加active到点击的这个li上面
+            if ($chatBox.css('display') == 'none') {
+                $chatBox.css('display', 'block');
+            }
+            var toUserId = $(this).find('input').val(); //聊天对象的id
+            var otherAvatarUrl = $(this).find('img').attr('src'); //聊天对象的头像url
+            if ($(this).className != 'active-chat') { //如果这个不是当前已经选中的（再次点击当前选中的）
+                // 将已有的聊天记录删除
+                $('.chat-box .panel-body').empty();
+                // 渲染聊天记录
+                $.post('/test/switchChat', {
+                    userID: toUserId
+                }, function (data) {
+                    var jsonData = $.parseJSON(data);
+                    renderChatHistory(jsonData, myAvatarUrl, otherAvatarUrl);
+                });
+                $chatListLi.removeClass('active-chat');
+                $(this).addClass('active-chat');
+            }
+        })
+    }
+    // 渲染聊天记录
+    function renderChatHistory(data, myAvatarUrl, otherAvatarUrl) {
+        var $chatBoxCentent = $('.chat-box .panel-body');
+        if (data.length) { //如果有聊天数据
+            for (i in data) {
+                if (data[i].isMe) { //如果是我发送给别人的消息
+                    var html = '<div class="chat-item chat-item-me clearfix"><div class="avatar"><img class="chat-avatar img-responsive img-circle" src="' + myAvatarUrl + '" alt="回复人头像"></div><div class="content"><div class="arrow-left"></div><div class="chat-text">' + data[i].chatText + '</div></div></div>'
+                } else { //如果是别人发送给我的消息
+                    var html = '<div class="chat-item chat-item-other clearfix"><div class="avatar"><img class="chat-avatar img-responsive img-circle" src="' + otherAvatarUrl + '" alt="回复人头像"></div><div class="content"><div class="arrow-right"></div><div class="chat-text">' + data[i].chatText + '</div></div></div>'
+                }
+                $chatBoxCentent.append($(html));
+            }
+        }
+
+    }
+
+    function chat() {
+        switchChatObj(); //聊天对象选择
+        // SendMsg();
+        // ReceiveMsg();
     }
     init();
 })
