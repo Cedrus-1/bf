@@ -248,13 +248,13 @@
     padding: 0;
 }
 
-.chat-panel li:hover,
 .active-chat {
     background: #2196f3;
     color: #fff;
 }
 
 .chat-item-info {
+    position: relative;
     width: 80%;
     margin: 0 auto;
 }
@@ -267,14 +267,33 @@
 }
 
 .chat-nickname {
-    margin-left: 40px;
+    width: 5em;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-left: 20px;
     font-size: 16px;
     font-weight: bold;
     height: 80px;
     line-height: 80px;
+    text-overflow: ellipsis;
+}
+
+.chat-status {
+    position: absolute;
+    top: 58px;
+    right: -15px;
+    font-size: 12px;
+}
+
+.chat-tips {
+    position: absolute;
+    top: 5px;
+    right: -15px;
+    font-size: 12px;
 }
 
 .chat-box {
+    display: none;
     margin-left: -28px;
 }
 
