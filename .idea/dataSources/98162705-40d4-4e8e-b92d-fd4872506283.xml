@@ -19,7 +19,7 @@
     <table id="13" parent="2" name="comment"/>
     <table id="14" parent="2" name="dynamic"/>
     <table id="15" parent="2" name="leaveword"/>
-    <table id="16" parent="2" name="like"/>
+    <table id="16" parent="2" name="likes"/>
     <table id="17" parent="2" name="message"/>
     <table id="18" parent="2" name="relation"/>
     <table id="19" parent="2" name="user"/>
@@ -75,292 +75,288 @@
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="30" parent="13" name="parentCommentID">
+    <column id="30" parent="13" name="level">
       <Position>5</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="31" parent="13" name="level">
+    <column id="31" parent="13" name="comment">
       <Position>6</Position>
-      <DataType>int(11)|0</DataType>
-    </column>
-    <column id="32" parent="13" name="comment">
-      <Position>7</Position>
       <DataType>varchar(140)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="33" parent="13" name="commentTime">
-      <Position>8</Position>
+    <column id="32" parent="13" name="commentTime">
+      <Position>7</Position>
       <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="34" parent="13" name="PRIMARY">
+    <key id="33" parent="13" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>commentID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="35" parent="14" name="dynamicID">
+    <column id="34" parent="14" name="dynamicID">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="36" parent="14" name="dynamicUserID">
+    <column id="35" parent="14" name="dynamicUserID">
       <Position>2</Position>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="37" parent="14" name="content">
+    <column id="36" parent="14" name="content">
       <Position>3</Position>
-      <DataType>varchar(140)|0</DataType>
+      <DataType>text|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="38" parent="14" name="dynamicTime">
+    <column id="37" parent="14" name="dynamicTime">
       <Position>4</Position>
       <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="39" parent="14" name="likeNumber">
+    <column id="38" parent="14" name="likeNumber">
       <Position>5</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="40" parent="14" name="commentNumber">
+    <column id="39" parent="14" name="commentNumber">
       <Position>6</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="41" parent="14" name="photo">
+    <column id="40" parent="14" name="photo">
       <Position>7</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <key id="42" parent="14" name="PRIMARY">
+    <key id="41" parent="14" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>dynamicID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="43" parent="15" name="leaveWordID">
+    <column id="42" parent="15" name="leaveWordID">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="44" parent="15" name="sendUserID">
+    <column id="43" parent="15" name="sendUserID">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="45" parent="15" name="receiveUserID">
+    <column id="44" parent="15" name="receiveUserID">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="46" parent="15" name="leaveWord">
+    <column id="45" parent="15" name="leaveWord">
       <Position>4</Position>
       <DataType>varchar(140)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="47" parent="15" name="time">
+    <column id="46" parent="15" name="time">
       <Position>5</Position>
       <DataType>datetime|0</DataType>
     </column>
-    <column id="48" parent="15" name="parentLeaveWordID">
+    <column id="47" parent="15" name="parentLeaveWordID">
       <Position>6</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="49" parent="15" name="level">
+    <column id="48" parent="15" name="level">
       <Position>7</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <key id="50" parent="15" name="PRIMARY">
+    <key id="49" parent="15" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>leaveWordID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="51" parent="16" name="likeID">
+    <column id="50" parent="16" name="likeID">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="52" parent="16" name="dynamicID">
+    <column id="51" parent="16" name="dynamicID">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="53" parent="16" name="userID">
+    <column id="52" parent="16" name="userID">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="54" parent="16" name="dynamicID">
+    <index id="53" parent="16" name="dynamicID">
       <ColNames>dynamicID</ColNames>
     </index>
-    <index id="55" parent="16" name="userID">
+    <index id="54" parent="16" name="userID">
       <ColNames>userID</ColNames>
     </index>
-    <key id="56" parent="16" name="PRIMARY">
+    <key id="55" parent="16" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>likeID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="57" parent="16" name="dynamicID">
+    <foreign-key id="56" parent="16" name="dynamicID">
       <ColNames>dynamicID</ColNames>
       <RefSchemaName>bf</RefSchemaName>
       <RefTableName>dynamic</RefTableName>
       <RefColNames>dynamicID</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="58" parent="16" name="userID">
+    <foreign-key id="57" parent="16" name="userID">
       <ColNames>userID</ColNames>
       <RefSchemaName>bf</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>userID</RefColNames>
     </foreign-key>
-    <column id="59" parent="17" name="messageID">
+    <column id="58" parent="17" name="messageID">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="60" parent="17" name="type">
+    <column id="59" parent="17" name="type">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="61" parent="17" name="content">
+    <column id="60" parent="17" name="content">
       <Position>3</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="62" parent="17" name="sendUserID">
+    <column id="61" parent="17" name="sendUserID">
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="63" parent="17" name="receiveUserID">
+    <column id="62" parent="17" name="receiveUserID">
       <Position>5</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="64" parent="17" name="messageTime">
+    <column id="63" parent="17" name="messageTime">
       <Position>6</Position>
       <DataType>datetime|0</DataType>
     </column>
-    <column id="65" parent="17" name="isRead">
+    <column id="64" parent="17" name="isRead">
       <Position>7</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <key id="66" parent="17" name="PRIMARY">
+    <key id="65" parent="17" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>messageID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="67" parent="18" name="relationID">
+    <column id="66" parent="18" name="relationID">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="68" parent="18" name="applyID">
+    <column id="67" parent="18" name="applyID">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="69" parent="18" name="agreeID">
+    <column id="68" parent="18" name="agreeID">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="70" parent="18" name="type">
+    <column id="69" parent="18" name="type">
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <index id="71" parent="18" name="agreeID">
+    <index id="70" parent="18" name="agreeID">
       <ColNames>agreeID</ColNames>
     </index>
-    <index id="72" parent="18" name="applyID">
+    <index id="71" parent="18" name="applyID">
       <ColNames>applyID</ColNames>
     </index>
-    <key id="73" parent="18" name="PRIMARY">
+    <key id="72" parent="18" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>relationID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="74" parent="18" name="applyID">
+    <foreign-key id="73" parent="18" name="applyID">
       <ColNames>applyID</ColNames>
       <RefSchemaName>bf</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>userID</RefColNames>
     </foreign-key>
-    <foreign-key id="75" parent="18" name="agreeID">
+    <foreign-key id="74" parent="18" name="agreeID">
       <ColNames>agreeID</ColNames>
       <RefSchemaName>bf</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>userID</RefColNames>
     </foreign-key>
-    <column id="76" parent="19" name="userID">
+    <column id="75" parent="19" name="userID">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="77" parent="19" name="username">
+    <column id="76" parent="19" name="username">
       <Position>2</Position>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="78" parent="19" name="password">
+    <column id="77" parent="19" name="password">
       <Position>3</Position>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="79" parent="19" name="email">
+    <column id="78" parent="19" name="email">
       <Position>4</Position>
       <DataType>varchar(30)|0</DataType>
     </column>
-    <column id="80" parent="19" name="sex">
+    <column id="79" parent="19" name="sex">
       <Position>5</Position>
       <DataType>int(4)|0</DataType>
     </column>
-    <column id="81" parent="19" name="birth">
+    <column id="80" parent="19" name="birth">
       <Position>7</Position>
       <DataType>datetime|0</DataType>
     </column>
-    <column id="82" parent="19" name="constellation">
+    <column id="81" parent="19" name="constellation">
       <Position>8</Position>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="83" parent="19" name="work">
+    <column id="82" parent="19" name="work">
       <Position>9</Position>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="84" parent="19" name="hometown">
+    <column id="83" parent="19" name="hometown">
       <Position>10</Position>
       <DataType>varchar(100)|0</DataType>
     </column>
-    <column id="85" parent="19" name="district">
+    <column id="84" parent="19" name="district">
       <Position>11</Position>
       <DataType>varchar(100)|0</DataType>
     </column>
-    <column id="86" parent="19" name="school">
+    <column id="85" parent="19" name="school">
       <Position>12</Position>
       <DataType>varchar(100)|0</DataType>
     </column>
-    <column id="87" parent="19" name="company">
+    <column id="86" parent="19" name="company">
       <Position>13</Position>
       <DataType>varchar(100)|0</DataType>
     </column>
-    <column id="88" parent="19" name="phone">
+    <column id="87" parent="19" name="phone">
       <Position>14</Position>
       <DataType>varchar(11)|0</DataType>
     </column>
-    <column id="89" parent="19" name="personalizedSignature">
+    <column id="88" parent="19" name="personalizedSignature">
       <Position>15</Position>
       <DataType>varchar(140)|0</DataType>
     </column>
-    <column id="90" parent="19" name="photo">
+    <column id="89" parent="19" name="photo">
       <Position>16</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="91" parent="19" name="age">
+    <column id="90" parent="19" name="age">
       <Position>6</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <key id="92" parent="19" name="PRIMARY">
+    <key id="91" parent="19" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>userID</ColNames>
       <Primary>1</Primary>

@@ -63,7 +63,7 @@ public class LeaveWordServiceImpl implements LeaveWordService {
 		com.bean.Message message1 = new com.bean.Message();
 		message1.setContent(leaveWord.getLeaveWord());
 		message1.setMessageTime(new Date());
-		message1.setType("comment");
+		message1.setType("留言");
 		message1.setSendUserID(leaveWord.getSendUserID());
 		message1.setReceiveUserID(leaveWord.getReceiveUserID());
 		if(leaveWordMapper.addLeaveWord(leaveWord)>0

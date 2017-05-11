@@ -6,10 +6,7 @@ import com.bean.Relation;
 import com.bean.User;
 import com.enums.Message;
 import com.enums.State;
-import com.service.DynamicService;
-import com.service.LeaveWordService;
-import com.service.RelationService;
-import com.service.UserService;
+import com.service.*;
 import com.sun.istack.internal.Nullable;
 import com.util.Page;
 import com.util.UploadUtil;
@@ -49,6 +46,8 @@ public class UserController {
     private DynamicService dynamicService;
     @Autowired
     private LeaveWordService leaveWordService;
+    @Autowired
+    private MessageService messageService;
 
     @RequestMapping("/index")
     public ModelAndView index(HttpSession session) {
@@ -109,6 +108,9 @@ public class UserController {
         try {
             Date date=sdf.parse(birthday);
             user.setBirth(date);
+            int nowYear = new Date().getYear();
+            int age = nowYear-date.getYear();
+            user.setAge(age);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -211,16 +213,41 @@ public class UserController {
             return modelAndView;
         }
         List<User> online = new ArrayList<>();
-        Map<Integer,WebSocketSession> userMap = MyHandler.getUserMap();
+        List<User> offline = new ArrayList<>();
+        offline.addAll(friends);
+        Map<Integer,WebSocketSession> userMap = myHandler.getUserMap();
         for(Integer integer:userMap.keySet()){
-            online.add(userService.getUserByID(integer));
+            for(User user:friends){
+                if(user.getUserID() == integer){
+                    online.add(userService.getUserByID(integer));
+                }
+            }
         }
-        friends.removeAll(online);
-        modelAndView.addObject("offline",friends);
+        for(User user:friends){
+            for(User user1:online){
+                if(user.getUserID() == user1.getUserID()){
+                    offline.remove(user);
+                }
+            }
+        }
+        modelAndView.addObject("offline",offline);
         modelAndView.addObject("online",online);
         return modelAndView;
     }
 
+
+    @RequestMapping("/messageBox")
+    public ModelAndView messageBox(HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView("message");
+        int userID = (int)session.getAttribute("userID");
+        List<com.bean.Message> friendMessage =  messageService.getFriendMessageByUserID(userID);
+        List<com.bean.Message> commentMessage =  messageService.getCommentMessageByUserID(userID);
+        List<com.bean.Message> leaveWordMessage =  messageService.getLeaveWordMessageByUserID(userID);
+        modelAndView.addObject("friendMessage",friendMessage);
+        modelAndView.addObject("commentMessage",commentMessage);
+        modelAndView.addObject("leaveWordMessage",leaveWordMessage);
+        return modelAndView;
+    }
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public String upload(HttpServletRequest request, RedirectAttributes attributes, HttpSession session) {

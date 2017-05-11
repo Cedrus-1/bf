@@ -17,20 +17,20 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/user/index">主页</a></li>
+                <li ><a href="/user/index">主页</a></li>
                 <li><a href="/user/findFriend">发现朋友</a></li>
                 <li><a href="/user/hot?pageNum=1">热点</a></li>
                 <li><a href="/user/chat">聊天</a></li>
 
             </ul>
             <ul class="nav navbar-nav navbar-right aaa">
-                <li><img src="${sessionScope.get("photo")}"
+                <li><img id="myAvatar" src="${sessionScope.get("photo")}"
                          class="avatar-me img-responsive img-rounded" alt="Responsive image"></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.get("username")} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="/user/profile?pageNum=1">个人中心</a></li>
-                        <li><a href="#">消息</a></li>
+                        <li><a href="/user/messageBox">消息</a></li>
                         <li><a href="/user/setting">设置</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="/logout">注销</a></li>

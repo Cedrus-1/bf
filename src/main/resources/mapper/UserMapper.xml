@@ -19,7 +19,7 @@
             <if test="userName!=null and userName!='' "> AND username like CONCAT('%',#{userName},'%') </if>
             <if test="email!=null and email!='' "> AND email like CONCAT('%',#{email},'%') </if>
             <if test="sex>0 "> AND sex!=#{sex} </if>
-            <if test="age>0 "> AND (age BETWEEN #{age}-2 AND #{age}+2 )</if>
+            <if test="age>0 "> AND (age >= #{age}-2 AND #{age}+2 >= age)</if>
             <if test="constellation!=null and constellation!='' "> AND constellation=#{constellation} </if>
             <if test="work!=null and work!='' "> AND work =#{work}</if>
             <if test="hometown!=null and hometown!='' "> AND hometown like CONCAT('%',#{hometown},'%') </if>
@@ -31,7 +31,7 @@
 
     <select id="queryUsers"  resultType="com.bean.User">
         SELECT * FROM user
-        WHERE (age BETWEEN #{1} AND #{2} ) AND sex=#{user.sex}
+        WHERE (age >= #{1} AND #{2} >= age ) AND sex=#{user.sex}
         <if test="user.userName!=null and user.userName!='' "> AND username like CONCAT('%',#{user.userName},'%') </if>
         <if test="user.email!=null and user.email!='' "> AND email like CONCAT('%',#{user.email},'%') </if>
         <if test="user.constellation!=null and user.constellation!='' "> AND constellation=#{user.constellation} </if>
@@ -44,8 +44,8 @@
     </select>
 
     <insert id="addUser" parameterType="com.bean.User" useGeneratedKeys="true" keyProperty="userID">
-		insert into user(userName, password, email,photo)
-			values(#{userName}, #{password},#{email},#{photo});
+		insert into user(userName, password, email,photo,age,sex)
+			values(#{userName}, #{password},#{email},#{photo},#{age},#{sex});
 	</insert>
 
     <update id="updateUser" parameterType="com.bean.User">
@@ -54,6 +54,7 @@
             <if test="password!=null and password.trim()!='' "> password=#{password},</if>
             <if test="email!=null and email!='' "> email=#{email},</if>
             <if test="sex!=0"> sex=#{sex},</if>
+            <if test="age!=0"> age=#{age},</if>
             <if test="birth!=null "> birth=#{birth},</if>
             <if test="constellation!=null and constellation!='' "> constellation=#{constellation},</if>
             <if test="work!=null and work!='' "> work=#{work},</if>

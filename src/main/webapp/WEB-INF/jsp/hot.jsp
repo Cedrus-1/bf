@@ -70,7 +70,7 @@
                     <div class="rep-item clearfix">
                         <div class="rep-item-from pull-left">
                             <img class="img-responsive img-rounded" src="${comment.commentUser.photo}" alt="回复人头像">
-                            <span>${comment.commentUser.userName}</span>
+                            <span><a href="/user/singlePage?userID=${comment.commentUserID}">${comment.commentUser.userName}</a></span>
                         </div>
                         <p class="rep-item-content">${comment.comment}</p>
                     </div>

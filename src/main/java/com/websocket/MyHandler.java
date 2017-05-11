@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.*;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.bean.ChatRecord;
 import com.bean.User;
@@ -47,20 +48,21 @@ public class MyHandler extends TextWebSocketHandler {
         super.handleTextMessage(session, message);
         String _message = message.getPayload();
         JSONObject chat = JSON.parseObject(_message);
-        JSONObject message1 = JSON.parseObject(chat.get("message").toString());
-        if(message1.get("to") != null && !message1.get("to").equals("")){
-            int sendUserID = Integer.parseInt(message1.get("from").toString());
-            int receiveUserID = Integer.parseInt(message1.get("to").toString());
-            sendMessageToUser(sendUserID,new TextMessage(_message));//发给自己
-            sendMessageToUser(receiveUserID,new TextMessage(_message));//发给目的对象
-            ChatRecord record = new ChatRecord();
-            record.setTime(new Date());
-            record.setChatRecord(message1.get("content").toString());
-            record.setSendUserID(sendUserID);
-            record.setReceiveUserID(receiveUserID);
-            Message message2 = chatRecordService.addRecord(record);
-            System.out.println(message2.getMessage());
-        }
+        String to = chat.get("to").toString();
+        String content = chat.get("content").toString();
+        int sendUserID = Integer.parseInt(session.getAttributes().get("userCd").toString());
+        int receiveUserID = Integer.parseInt(to);
+        chat.put("from",sendUserID);
+        //sendMessageToUser(sendUserID,new TextMessage(_message));//发给自己
+        sendMessageToUser(receiveUserID,new TextMessage(chat.toString()));//发给目的对象
+        ChatRecord record = new ChatRecord();
+        record.setTime(new Date());
+        record.setChatRecord(content);
+        record.setSendUserID(sendUserID);
+        record.setReceiveUserID(receiveUserID);
+        Message message2 = chatRecordService.addRecord(record);
+        System.out.println(message2.getMessage());
+
     }
 
     @Override
@@ -69,7 +71,7 @@ public class MyHandler extends TextWebSocketHandler {
         // 从session中取在线用户Cd
         int userID = (int) session.getAttributes().get("userCd");
         userMap.put(userID,session);
-        User user = userService.getUserByID(userID);
+        /*User user = userService.getUserByID(userID);
         List<User> friends = relationService.getFriendsByID(userID);
         List<User> list = new ArrayList<>();
         for(Map.Entry<Integer,WebSocketSession> entry:userMap.entrySet()){
@@ -82,7 +84,7 @@ public class MyHandler extends TextWebSocketHandler {
         String message = getMessage("", list);
         if(user!=null){
             session.sendMessage(new TextMessage(message));
-        }
+        }*/
     }
 
     
@@ -98,10 +100,8 @@ public class MyHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
         System.out.println("WebSocket:"+session.getAttributes().get("userCd")+" close connection");
-        Iterator<Map.Entry<Integer,WebSocketSession>> iterator = userMap.entrySet().iterator();
-        while(iterator.hasNext()){
-            Map.Entry<Integer,WebSocketSession> entry = iterator.next();
-            if(entry.getValue().getAttributes().get("userCd")==session.getAttributes().get("userCd")){
+        for (Map.Entry<Integer, WebSocketSession> entry : userMap.entrySet()) {
+            if (entry.getValue().getAttributes().get("userCd") == session.getAttributes().get("userCd")) {
                 userMap.remove(session.getAttributes().get("userCd"));
                 System.out.println("WebSocket in staticMap:" + session.getAttributes().get("userCd") + " removed");
             }

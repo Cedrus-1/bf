@@ -13,6 +13,7 @@ public class Message {
     private int receiveUserID;
     private Date messageTime;
     private int isRead;
+    private User sendUser;
 
     public int getMessageID() {
         return messageID;
@@ -68,5 +69,13 @@ public class Message {
 
     public void setIsRead(int isRead) {
         this.isRead = isRead;
+    }
+
+    public User getSendUser() {
+        return sendUser;
+    }
+
+    public void setSendUser(User sendUser) {
+        this.sendUser = sendUser;
     }
 }

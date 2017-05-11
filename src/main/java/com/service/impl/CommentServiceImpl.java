@@ -38,7 +38,7 @@ public class CommentServiceImpl implements CommentService {
         com.bean.Message message1 = new com.bean.Message();
         message1.setContent(comment.getComment());
         message1.setMessageTime(new Date());
-        message1.setType("comment");
+        message1.setType("评论");
         message1.setSendUserID(comment.getCommentUserID());
         message1.setReceiveUserID(comment.getCommentToUserID());
         if (commentMapper.addComment(comment) > 0

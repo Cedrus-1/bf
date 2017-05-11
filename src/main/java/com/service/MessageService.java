@@ -7,7 +7,11 @@ public interface MessageService {
 
 	Message getMessageByMessageID(int id);
 
-	List<Message> getUserByUserID(int id);
+	List<Message> getFriendMessageByUserID(int id);
+
+	List<Message> getCommentMessageByUserID(int id);
+
+	List<Message> getLeaveWordMessageByUserID(int id);
 
 	boolean addMessage(Message message);
 

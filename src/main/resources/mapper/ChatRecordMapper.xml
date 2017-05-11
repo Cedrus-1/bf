@@ -9,12 +9,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT * FROM chatrecord
           WHERE (sendUserID = #{0} AND receiveUserID=#{1} )
             OR (sendUserID = #{1} AND receiveUserID=#{0} )
-          ORDER BY "time" DESC
+          ORDER BY time DESC
           limit #{2},#{3}
     </select>
 
     <select id="getPageCountRecordByUserIDs" resultType="Integer" >
-        SELECT count(*) FROM
+        SELECT count(*) FROM chatrecord
         WHERE (sendUserID = #{0} AND receiveUserID=#{1} )
             OR (sendUserID = #{1} AND receiveUserID=#{0} )
     </select>

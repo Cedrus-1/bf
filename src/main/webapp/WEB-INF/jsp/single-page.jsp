@@ -67,7 +67,7 @@
                     <% if(flag==1){ %>
                     <!--如果是好友就像是发消息按钮，如果不是好友就显示加好友按钮，两个只显示其中一个-->
                     <!--这里填充上面对应信息人的uid，添加好友会用到-->
-                    <input type="hidden" name="uid" value="填充uid">
+                    <input type="hidden" name="uid" value="${user.userID}">
                     <!--第一种显示下面这个-->
                     <li><button class="btn btn-default">发消息</button></li>
                     <% }else {%>
@@ -103,7 +103,7 @@
                             </div>
                             <div class="leaveMsgItem-body clearfix">
                                 <div class="leaveMsgItem-left pull-left">
-                                    <span class="leaveMsg-from">${item.get(0).sendUser.userName}</span>
+                                    <span class="leaveMsg-from"><a href="/user/singlePage?userID=${item.get(0).sendUserID}">${item.get(0).sendUser.userName}</a></span>
                                     <img class="img-responsive img-rounded" src="${item.get(0).sendUser.photo}"
                                          alt="...">
                                 </div>
@@ -121,13 +121,13 @@
                                             <div class="rep-item-from pull-left">
                                                 <img class="img-responsive img-rounded"
                                                      src="${leaveWord.sendUser.photo}" alt="回复人头像">
-                                                <span>${leaveWord.sendUser.userName}</span>
+                                                <span><a href="/user/singlePage?userID=${leaveWord.sendUserID}">${leaveWord.sendUser.userName}</a></span>
                                             </div>
                                             <span class="pull-left">回复</span>
                                             <div class="rep-item-to pull-left">
                                                 <img class="img-responsive img-rounded"
                                                      src="${leaveWord.receiveUser.photo}" alt="被回复人头像">
-                                                <span>${leaveWord.receiveUser.userName}</span>
+                                                <span><a href="/user/singlePage?userID=${leaveWord.receiveUserID}">${leaveWord.receiveUser.userName}</a></span>
                                             </div>
                                             <p class="rep-item-content">${leaveWord.leaveWord}</p>
                                         </div>

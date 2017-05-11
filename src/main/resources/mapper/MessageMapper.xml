@@ -4,12 +4,20 @@
 <mapper namespace="com.persistence.MessageMapper">
 
     <select id="getMessageByMessageID" parameterType="Integer" resultType="com.bean.Message">
-		Select * From message  Where messageID=#{0} AND isRead=1
+		Select * From message  Where messageID=#{0}
 	</select>
 
-    <select id="getUserByUserID" parameterType="Integer" resultType="com.bean.Message">
-		SELECT * FROM message WHERE receiveUserID = #{0} AND isRead = 1
+    <select id="getFriendMessageByUserID" parameterType="Integer" resultType="com.bean.Message">
+		SELECT * FROM message WHERE receiveUserID = #{0} AND isRead = 0 AND type="好友申请"
 	</select>
+
+    <select id="getCommentMessageByUserID" parameterType="Integer" resultType="com.bean.Message">
+        SELECT * FROM message WHERE receiveUserID = #{0} AND isRead = 0 AND type="评论"
+    </select>
+
+    <select id="getLeaveWordMessageByUserID" parameterType="Integer" resultType="com.bean.Message">
+        SELECT * FROM message WHERE receiveUserID = #{0} AND isRead = 0 AND type="留言"
+    </select>
 
     <insert id="addMessage" parameterType="com.bean.Message" useGeneratedKeys="true" keyProperty="messageID">
 		insert into message(type, content, sendUserID, receiveUserID, messageTime, isRead)

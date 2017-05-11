@@ -8,8 +8,12 @@ import java.util.List;
 public interface MessageMapper {
 	
 	Message getMessageByMessageID(int id);
-	
-	List<Message> getUserByUserID(int id);
+
+	List<Message> getFriendMessageByUserID(int id);
+
+	List<Message> getCommentMessageByUserID(int id);
+
+	List<Message> getLeaveWordMessageByUserID(int id);
 	
 	int addMessage(Message message);
 

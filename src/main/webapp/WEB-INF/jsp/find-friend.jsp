@@ -61,28 +61,28 @@
                                 <option value="26">24-28岁</option>
                                 <option value="30">28岁以上</option>
                             </c:if>
-                            <c:if test="${user.age >=16 && user.age<20}">
+                            <c:if test="${user.age >16 && user.age<=20}">
                                 <option value="14" >16岁以下</option>
                                 <option value="18" selected>16-20岁</option>
                                 <option value="22">20-24岁</option>
                                 <option value="26">24-28岁</option>
                                 <option value="30">28岁以上</option>
                             </c:if>
-                            <c:if test="${user.age >=20 && user.age<24}">
+                            <c:if test="${user.age >20 && user.age<=24}">
                                 <option value="14" >16岁以下</option>
                                 <option value="18">16-20岁</option>
                                 <option value="22" selected>20-24岁</option>
                                 <option value="26">24-28岁</option>
                                 <option value="30">28岁以上</option>
                             </c:if>
-                            <c:if test="${user.age >=24 && user.age<28}">
+                            <c:if test="${user.age >24 && user.age<=28}">
                                 <option value="14" >16岁以下</option>
                                 <option value="18">16-20岁</option>
                                 <option value="22">20-24岁</option>
                                 <option value="26" selected>24-28岁</option>
                                 <option value="30">28岁以上</option>
                             </c:if>
-                            <c:if test="${user.age >=28}">
+                            <c:if test="${user.age >28}">
                                 <option value="14" >16岁以下</option>
                                 <option value="18">16-20岁</option>
                                 <option value="22">20-24岁</option>
